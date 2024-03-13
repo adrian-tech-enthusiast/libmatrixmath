@@ -47,7 +47,7 @@ void vector_destroy(struct vector *object)
    {
       return;
    }
-   // Free the object properties.
+   // Free the object items.
    for (int i = 0; i < object->capacity; i++)
    {
       vector_item_destroy(object->items[i]);
