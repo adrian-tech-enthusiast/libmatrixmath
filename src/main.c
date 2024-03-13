@@ -73,21 +73,34 @@ int main(int argc, char const *argv[])
    vector_setl(b, 0, 1);
    vector_setl(b, 1, 2);
 
-   struct vector *result = vector_add(a, b);
+   struct vector *result1 = vector_add(a, b);
    vector_print(a);
    vector_print(b);
-   vector_print(result);
+   vector_print(result1);
 
    printf("------------ Vectors subtraction. ------------\n");
-   result = vector_sub(a, b);
+   struct vector *result2 = vector_sub(a, b);
    vector_print(a);
    vector_print(b);
-   vector_print(result);
+   vector_print(result2);
+
+   printf("------------ Vector multiplication: dot product. ------------\n");
+   long double *scalar_result = vector_dot_product(a, b);
+   vector_print(a);
+   vector_print(b);
+   printf("Vector multiplication - Dot product result is: [%Lf]\n", *scalar_result);
+
+   printf("------------ Vector multiplication by a scalar[4.5]. ------------\n");
+   struct vector *result3 = vector_scalar_mul(4.5, a);
+   vector_print(a);
+   vector_print(result3);
 
    // Clear the used memory.
    vector_destroy(a);
    vector_destroy(b);
-   vector_destroy(result);
+   vector_destroy(result1);
+   vector_destroy(result2);
+   vector_destroy(result3);
 
    // Return success response.
    return 0;
