@@ -8,7 +8,6 @@
  */
 void vector_print(struct vector *object)
 {
-   // @todo: Complete this implementation.
    printf("Vector: {\n");
    for (int i = 0; i < object->capacity; i++)
    {
