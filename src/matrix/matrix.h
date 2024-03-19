@@ -11,7 +11,7 @@ struct matrix
 {
 
    /**
-    * Pointer to the vectors in the chain.
+    * Pointer to the row vectors in the chain.
     *
     * Allow you to walk array/object chains.
     *
@@ -104,5 +104,38 @@ long double *matrix_setl(struct matrix *object, int j, int k, long double value)
  *   The pointer to the long double value stored at the given position; otherwise NULL.
  */
 long double *matrix_getl(struct matrix *object, int j, int k);
+
+/*
+ * Create a new matrix object instance from the given array values.
+ *
+ *
+ * @param long double *array
+ *   The pointer to the tip(first) value on the array.
+ * @param const int rows
+ *   The numer of rows in the matrix.
+ * @param const int columns
+ *   The numer of columns in the matrix.
+ *
+ * @return struct matrix*
+ *   The pointer to the matrix instance, otherwise NULL.
+ */
+struct matrix *matrix_from_array(long double *array, const int rows, const int columns);
+
+/**
+ * Set the values of the matrix from the given array.
+ *
+ * @param long double *array
+ *   The pointer to the tip(first) value on the array.
+ * @param struct matrix* object
+ *   The matrix object.
+ * @param const int rows
+ *   The numer of rows in the matrix.
+ * @param const int columns
+ *   The numer of columns in the matrix.
+ *
+ * @return int
+ *   Returns 1 if the given positions j and K are valid, otherwise 0.
+ */
+void matrix_fill_from_array(long double *array, struct matrix *object, const int rows, const int columns);
 
 #endif

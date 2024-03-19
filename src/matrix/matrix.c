@@ -117,3 +117,38 @@ long double *matrix_getl(struct matrix *object, int j, int k)
    // Get the value from the vector in the k position.
    return vector_getl(vector_object, k);
 }
+
+/**
+ * {@inheritdoc}
+ */
+struct matrix *matrix_from_array(long double *array, const int rows, const int columns)
+{
+   struct matrix *object = matrix_create(rows, columns);
+   if (object == NULL)
+   {
+      return NULL;
+   }
+   matrix_fill_from_array(array, object, rows, columns);
+   return object;
+}
+
+/**
+ * {@inheritdoc}
+ */
+void matrix_fill_from_array(long double *array, struct matrix *object, const int rows, const int columns)
+{
+   if (object == NULL)
+   {
+      return;
+   }
+   int j, k;
+   long double *value;
+   for (j = 0; j < rows; j++)
+   {
+      for (k = 0; k < columns; k++)
+      {
+         value = (array + j * columns) + k;
+         matrix_setl(object, j, k, *value);
+      }
+   }
+}
