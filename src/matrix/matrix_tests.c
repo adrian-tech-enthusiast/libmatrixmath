@@ -43,11 +43,17 @@ int matrix_tests()
    printf("------------ Matrix addition. ------------\n");
    struct matrix *matrix_c = matrix_add(matrix_a, matrix_b);
    matrix_print(matrix_c);
+   
+   // Test Matrix subtraction.
+   printf("------------ Matrix subtraction. ------------\n");
+   struct matrix *matrix_d = matrix_sub(matrix_c, matrix_b);
+   matrix_print(matrix_d);
 
    // Clear the used memory.
    matrix_destroy(matrix_a);
    matrix_destroy(matrix_b);
    matrix_destroy(matrix_c);
+   matrix_destroy(matrix_d);
 
    // Return success response.
    return 0;
