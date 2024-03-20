@@ -34,6 +34,11 @@ int matrix_tests()
    matrix_print(matrix_a);
    matrix_print(matrix_b);
 
+   // Test Scalar multiplication.
+   printf("------------ Matrix multiplication by a scalar[4.5]. ------------\n");
+   matrix_scalar_mul(4.5, matrix_a);
+   matrix_print(matrix_a);
+
    // Clear the used memory.
    matrix_destroy(matrix_a);
    matrix_destroy(matrix_b);

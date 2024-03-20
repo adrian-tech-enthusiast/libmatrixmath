@@ -61,9 +61,9 @@ struct matrix *matrix_cross_product(struct matrix *a, struct matrix *b);
  * @param struct matrix* a
  *   The second matrix object to be multiplied.
  *
- * @return struct matrix*
- *   The new matrix instance with the multiplication; otherwise NULL.
+ * @return int
+ *   Returns 0 when the operation succeeded, otherwise 1.
  */
-struct matrix *matrix_scalar_mul(long double scalar, struct matrix *a);
+int matrix_scalar_mul(long double scalar, struct matrix *a);
 
 #endif
