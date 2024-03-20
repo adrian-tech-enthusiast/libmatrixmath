@@ -39,9 +39,15 @@ int matrix_tests()
    matrix_scalar_mul(4.5, matrix_a);
    matrix_print(matrix_a);
 
+   // Test Matrix addition.
+   printf("------------ Matrix addition. ------------\n");
+   struct matrix *matrix_c = matrix_add(matrix_a, matrix_b);
+   matrix_print(matrix_c);
+
    // Clear the used memory.
    matrix_destroy(matrix_a);
    matrix_destroy(matrix_b);
+   matrix_destroy(matrix_c);
 
    // Return success response.
    return 0;

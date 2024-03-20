@@ -8,8 +8,38 @@
  */
 struct matrix *matrix_add(struct matrix *a, struct matrix *b)
 {
-   // @todo: Complete this implementation.
-   return NULL;
+   // For matrices to be added together they must have identical dimensions.
+   if (a->rows != b->rows || a->columns != b->columns)
+   {
+      return NULL;
+   }
+   // Create the new Matrix to store the result of the operation.
+   struct matrix *result = matrix_create(a->rows, a->columns);
+   if (result == NULL)
+   {
+      return NULL;
+   }
+   // Sum the values.
+   long double *val1;
+   long double *val2;
+   long double sum = 0;
+   for (int j = 0; j < a->rows; j++)
+   {
+      for (int k = 0; k < a->columns; k++)
+      {
+         val1 = matrix_getl(a, j, k);
+         val2 = matrix_getl(b, j, k);
+         if (val1 == NULL || val2 == NULL)
+         {
+            free(result);
+            return NULL;
+         }
+         sum = *val1 + *val2;
+         matrix_setl(result, j, k, sum);
+      }
+   }
+   // Return the result of the operation.
+   return result;
 }
 
 /**
