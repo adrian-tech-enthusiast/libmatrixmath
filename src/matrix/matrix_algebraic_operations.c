@@ -84,10 +84,45 @@ struct matrix *matrix_sub(struct matrix *a, struct matrix *b)
 /**
  * {@inheritdoc}
  */
-long double *matrix_dot_product(struct matrix *a, struct matrix *b)
+struct matrix *matrix_mul(struct matrix *a, struct matrix *b)
 {
-   // @todo: Complete this implementation.
-   return NULL;
+   // To perform multiplication of two matrices, we should make
+   // sure that the number of columns in the 1st matrix is equal
+   // to the rows in the 2nd matrix.
+   // Therefore, the resulting matrix product will have a number
+   // of rows of the 1st matrix and a number of columns of the
+   // 2nd matrix.
+   if (a->columns != b->rows)
+   {
+      return NULL;
+   }
+   // Create the new Matrix to store the result of the operation.
+   struct matrix *c = matrix_create(a->rows, b->columns);
+   if (c == NULL)
+   {
+      return NULL;
+   }
+   // Mul the values.
+   long double *val1;
+   long double *val2;
+   long double result = 0;
+   for (int j = 0; j < a->rows; j++)
+   {
+      for (int k = 0; k < b->columns; k++)
+      {
+         result = 0;
+
+         for (int l = 0; l < b->rows; l++)
+         {
+            val1 = matrix_getl(a, j, l);
+            val2 = matrix_getl(b, l, k);
+            result += (*val1) * (*val2);
+         }
+         matrix_setl(c, j, k, result);
+      }
+   }
+   // Return the result of the operation.
+   return c;
 }
 
 /**
