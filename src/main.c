@@ -1,4 +1,5 @@
 #include "vector/vector_tests.h"
+#include "matrix/matrix_tests.h"
 
 /**
  * Main controller function.
@@ -14,6 +15,7 @@
 int main(int argc, char const *argv[])
 {
    vector_tests();
+   matrix_tests();
    // Return success response.
    return 0;
 }

@@ -41,19 +41,6 @@ struct vector *vector_sub(struct vector *a, struct vector *b);
 long double *vector_dot_product(struct vector *a, struct vector *b);
 
 /**
- * Vector multiplication: cross product.
- *
- * @param struct vector* a
- *   The first vector object to be multiplied.
- * @param struct vector* b
- *   The second vector object to be multiplied.
- *
- * @return struct vector*
- *   The new vector instance with the product of two vectors; otherwise NULL.
- */
-struct vector *vector_cross_product(struct vector *a, struct vector *b);
-
-/**
  * Vector multiplication by a scalar.
  *
  * @param long double scalar

@@ -49,13 +49,13 @@ int vector_tests()
       value = normalize_minmaxl(i, 0, capacity);
       vector_setl(VectorObject, i, value);
    }
+   // Print the vector.
+   vector_print(VectorObject);
    // Get value at a specific position.
    long double *item_value = vector_getl(VectorObject, 2);
    printf("The value at position 2 is: [%Lf]\n", *item_value);
    item_value = vector_getl(VectorObject, 10);
    printf("The value at position 10 is: [%Lf]\n", *item_value);
-   // Print the vector.
-   vector_print(VectorObject);
    // Clear the used memory.
    vector_destroy(VectorObject);
 
