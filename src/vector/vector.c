@@ -100,3 +100,45 @@ long double *vector_getl(struct vector *object, int index)
    }
    return (long double *)value;
 }
+
+/**
+ * {@inheritdoc}
+ */
+struct vector *vector_concatenate(struct vector *a, struct vector *b)
+{
+   int capacity = a->capacity + b->capacity;
+   // Create the new vector to store the result of the operation.
+   struct vector *result = vector_create(capacity);
+   if (result == NULL)
+   {
+      return NULL;
+   }
+   // Copy values from vector a.
+   long double *val;
+   int i;
+   for (i = 0; i < a->capacity; i++)
+   {
+      val = vector_getl(a, i);
+      if (val == NULL)
+      {
+         free(result);
+         return NULL;
+      }
+      vector_setl(result, i, (*val));
+   }
+   // Copy values from vector b.
+   int index = a->capacity;
+   for (i = 0; i < b->capacity; i++)
+   {
+      val = vector_getl(b, i);
+      if (val == NULL)
+      {
+         free(result);
+         return NULL;
+      }
+      index += i;
+      vector_setl(result, index, (*val));
+   }
+   // Return the result of the operation.
+   return result;
+}

@@ -91,12 +91,19 @@ int vector_tests()
    vector_print(a);
    vector_print(result3);
 
+   printf("------------ Vector concatenation. ------------\n");
+   struct vector *result4 = vector_concatenate(a, b);
+   vector_print(a);
+   vector_print(b);
+   vector_print(result4);
+
    // Clear the used memory.
    vector_destroy(a);
    vector_destroy(b);
    vector_destroy(result1);
    vector_destroy(result2);
    vector_destroy(result3);
+   vector_destroy(result4);
 
    // Return success response.
    return 0;
