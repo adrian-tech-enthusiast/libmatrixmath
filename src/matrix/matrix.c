@@ -71,7 +71,7 @@ void matrix_destroy(struct matrix *object)
  */
 int matrix_check_boundaries(struct matrix *object, int j, int k)
 {
-   if (j >= 0 && j <= object->rows && k >= 0 && k <= object->columns)
+   if (j >= 0 && j < object->rows && k >= 0 && k < object->columns)
    {
       return 1;
    }

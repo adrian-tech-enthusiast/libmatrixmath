@@ -2,6 +2,7 @@
 #include "matrix.h"
 #include "matrix_print.h"
 #include "matrix_algebraic_operations.h"
+#include "matrix_casting.h"
 #include "matrix_tests.h"
 
 /**
@@ -75,6 +76,32 @@ int matrix_tests()
    struct matrix *matrix_h = matrix_mul(matrix_a, matrix_b);
    matrix_print(matrix_h);
 
+   // Test Matix and Vector Nested Operations.
+   printf("------------ Matrix and Vector Nested Operations. ------------\n");
+   struct vector *vector_a = vector_create(6);
+   for (size_t i = 0; i < 6; i++) {
+      vector_setl(vector_a, i, (i+1));
+   }
+   long double array_i[3][6] = {
+       {0, 0, 0, 0, 0, -1},
+       {5, 6, 7, 8, 9, 10},
+       {3, 4, 5, 6, 7, 8}
+   };
+   long double array_j[6] = {1, 2, 3, 4, 5, 6};
+   long double array_k[3] = {1, 2, 3};
+   struct matrix *matrix_i = matrix_from_array(&array_i[0][0], 3, 6);
+   struct matrix *matrix_j = matrix_from_array(array_j, 6, 1);
+   struct matrix *matrix_k = matrix_from_array(array_k, 3, 1);
+
+   struct matrix *matrix_l = matrix_mul(matrix_i, matrix_j);
+   struct matrix *matrix_m = matrix_add(matrix_l, matrix_k);
+
+   matrix_print(matrix_i);
+   matrix_print(matrix_j);
+   matrix_print(matrix_k);
+   matrix_print(matrix_l);
+   matrix_print(matrix_m);
+
    // Clear the used memory.
    matrix_destroy(matrix_a);
    matrix_destroy(matrix_b);
@@ -84,6 +111,12 @@ int matrix_tests()
    matrix_destroy(matrix_f);
    matrix_destroy(matrix_g);
    matrix_destroy(matrix_h);
+
+   matrix_destroy(matrix_i);
+   matrix_destroy(matrix_j);
+   matrix_destroy(matrix_k);
+   matrix_destroy(matrix_l);
+   matrix_destroy(matrix_m);
    // Return success response.
    return 0;
 }
