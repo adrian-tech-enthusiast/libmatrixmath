@@ -1,8 +1,5 @@
 #include <stdio.h>
-#include "matrix.h"
-#include "matrix_print.h"
-#include "matrix_algebraic_operations.h"
-#include "matrix_casting.h"
+#include "../include/matrixmath.h"
 #include "matrix_tests.h"
 
 /**

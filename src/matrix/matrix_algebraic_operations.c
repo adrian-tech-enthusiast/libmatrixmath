@@ -1,7 +1,6 @@
 #include <stdlib.h>
-#include "matrix.h"
-#include "matrix_algebraic_operations.h"
 #include <error.h>
+#include "../../include/matrixmath.h"
 
 /**
  * {@inheritdoc}

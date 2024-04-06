@@ -1,6 +1,5 @@
 #include <stdlib.h>
-#include "vector.h"
-#include "vector_algebraic_operations.h"
+#include "../../include/matrixmath.h"
 
 /**
  * {@inheritdoc}

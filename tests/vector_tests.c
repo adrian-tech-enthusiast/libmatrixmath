@@ -1,7 +1,5 @@
 #include <stdio.h>
-#include "vector.h"
-#include "vector_print.h"
-#include "vector_algebraic_operations.h"
+#include "../include/matrixmath.h"
 #include "vector_tests.h"
 
 /**

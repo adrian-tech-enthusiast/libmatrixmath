@@ -1,5 +1,5 @@
-#include "vector/vector_tests.h"
-#include "matrix/matrix_tests.h"
+#include "vector_tests.h"
+#include "matrix_tests.h"
 
 /**
  * Main controller function.
