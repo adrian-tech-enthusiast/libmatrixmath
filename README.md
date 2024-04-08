@@ -22,7 +22,7 @@ To get started with the C Matrix Math Library, simply clone the repository and f
 
 ## Installation
 
-To make sure you obtain the most updated stable version of Docker Compose, you’ll download this software from its [official Github repository](https://github.com/adrian-tech-enthusiast/libmatrixmath).
+To make sure you obtain the most updated stable version of [shared library](https://en.wikipedia.org/wiki/Library_(computing)#Shared_libraries)(a DLL in Windows or .so in Unix/Linux), you’ll download this software from its [official Github repository](https://github.com/adrian-tech-enthusiast/libmatrixmath).
 
 First, confirm the latest version available in their [releases page](https://github.com/adrian-tech-enthusiast/libmatrixmath/releases). At the time of this writing, the most current stable version is `1.0.1`.
 
@@ -44,13 +44,13 @@ First, confirm the latest version available in their [releases page](https://git
     ldconfig -p | grep matrixmath
     ```
 
-3. Copy the library header file(`matrixmath.h`) in one of the C compiler's search path. Typical locations are `/usr/include` and `/usr/local/include`;
+3. Copy the library header file(`matrixmath.h`) to where it can be included in one of the C compiler's search path. Typical locations are `/usr/include` and `/usr/local/include`;
 
     ```bash
     sudo curl -L "https://raw.githubusercontent.com/adrian-tech-enthusiast/libmatrixmath/v1.0.1/include/matrixmath.h" -o /usr/local/include/matrixmath.h;
     ```
 
-    This allows the library header file to be included in your C project:
+    This allows the library header file to be included in your C project as follows:
 
     ```c
     #include <stdio.h>  /* standard input/output functions */
@@ -58,7 +58,7 @@ First, confirm the latest version available in their [releases page](https://git
     ```
     Without this `#include`, the compiler would complain about missing declarations for functions provided by the C Matrix Math Library. 
 
-4. Finally add the link library flag during the compilation of your C project: 
+4. Finally in order to compile your code with the library, add the link flag to the library during the compilation of your C project: 
 
     ```bash
     gcc -o tester tester.c -lmatrixmath
