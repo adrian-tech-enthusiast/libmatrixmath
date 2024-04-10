@@ -140,3 +140,21 @@ struct vector *vector_concatenate(struct vector *a, struct vector *b)
    // Return the result of the operation.
    return result;
 }
+
+/**
+ * {@inheritdoc}
+ */
+int vector_walk(struct vector *a, long double (*callback)(long double))
+{
+   long double *val;
+   for (int i = 0; i < a->capacity; i++)
+   {
+      val = vector_getl(a, i);
+      if (val == NULL)
+      {
+         return 0;
+      }
+      vector_setl(a, i, callback(*val));
+   }
+   return 1;
+}

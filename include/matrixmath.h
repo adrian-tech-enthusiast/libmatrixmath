@@ -89,6 +89,19 @@ long double *vector_getl(struct vector *object, int index);
  */
 struct vector *vector_concatenate(struct vector *a, struct vector *b);
 
+/*
+ * Apply a user supplied function to every member of an vector.
+ *
+ * @param struct vector *a
+ *   The vector to run through the callback function.
+ * @param long double (*callback)(long double)
+ *   A callable to run for each element in each array.
+ *
+ * @return int
+ *   Returns 1 if the walk operation succeeded, otherwise 0.
+ */
+int vector_walk(struct vector *a, long double (*callback)(long double));
+
 #endif
 
 #ifndef VECTOR_ALGEBRAIC_OPERATIONS_H

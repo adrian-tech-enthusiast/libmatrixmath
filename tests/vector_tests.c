@@ -29,6 +29,20 @@ long double normalize_minmaxl(long double x, long double min, long double max)
 }
 
 /**
+ * Cube callback function.
+ *
+ * @param long double x
+ *   The long double value.
+ *
+ * @return long double
+ *   The value cubed.
+ */
+long double cube(long double x)
+{
+    return (x * x * x);
+}
+
+/**
  * Main controller function.
  *
  * @return int
@@ -95,6 +109,18 @@ int vector_tests()
    vector_print(b);
    vector_print(result4);
 
+
+   printf("------------ Vector Walk. ------------\n");
+   capacity = 5;
+   struct vector *result5 = vector_create(capacity);
+   for (int i = 0; i < capacity; i++)
+   {
+      vector_setl(result5, i, (i +1));
+   }
+   vector_print(result5);
+   vector_walk(result5, &cube);
+   vector_print(result5);
+
    // Clear the used memory.
    vector_destroy(a);
    vector_destroy(b);
@@ -102,7 +128,7 @@ int vector_tests()
    vector_destroy(result2);
    vector_destroy(result3);
    vector_destroy(result4);
-
+   vector_destroy(result5);
    // Return success response.
    return 0;
 }
