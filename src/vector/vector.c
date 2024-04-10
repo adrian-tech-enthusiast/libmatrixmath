@@ -115,8 +115,7 @@ struct vector *vector_concatenate(struct vector *a, struct vector *b)
    }
    // Copy values from vector a.
    long double *val;
-   int i;
-   for (i = 0; i < a->capacity; i++)
+   for (int i = 0; i < a->capacity; i++)
    {
       val = vector_getl(a, i);
       if (val == NULL)
@@ -127,17 +126,16 @@ struct vector *vector_concatenate(struct vector *a, struct vector *b)
       vector_setl(result, i, (*val));
    }
    // Copy values from vector b.
-   int index = a->capacity;
-   for (i = 0; i < b->capacity; i++)
+   int start = a->capacity;
+   for (int j = 0; j < b->capacity; j++)
    {
-      val = vector_getl(b, i);
+      val = vector_getl(b, j);
       if (val == NULL)
       {
          free(result);
          return NULL;
       }
-      index += i;
-      vector_setl(result, index, (*val));
+      vector_setl(result, (start + j), (*val));
    }
    // Return the result of the operation.
    return result;

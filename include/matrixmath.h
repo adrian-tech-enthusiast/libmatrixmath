@@ -79,6 +79,11 @@ long double *vector_getl(struct vector *object, int index);
  * Concatenates the elements of one or more vectors together so that the values
  * of one are appended to the end of the previous one.
  *
+ * @param struct vector *a
+ *   The first vector to concatenate.
+ * @param struct vector *b
+ *   The second vector to concatenate.
+ *
  * @return struct vector*
  *   The pointer to the new vector instance, otherwise NULL.
  */
