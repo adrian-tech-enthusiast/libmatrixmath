@@ -127,6 +127,43 @@ struct matrix *matrix_mul(struct matrix *a, struct matrix *b)
 /**
  * {@inheritdoc}
  */
+struct vector *matrix_mul_vector(struct matrix *a, struct vector *b)
+{
+   // To perform multiplication between a matrix and a vector, we must
+   // make sure that the number of columns in the matrix is equal
+   // to the rows in the vector.
+   if (a->columns != b->capacity)
+   {
+      return NULL;
+   }
+   // Create the new Vector to store the result of the operation.
+   struct vector *c = vector_create(b->capacity);
+   if (c == NULL)
+   {
+      return NULL;
+   }
+   // Mul the values.
+   long double *val1;
+   long double *val2;
+   long double result = 0;
+   for (int j = 0; j < a->rows; j++)
+   {
+      result = 0;
+      for (int k = 0; k < a->columns; k++)
+      {
+         val1 = matrix_getl(a, j, k);
+         val2 = vector_getl(b, k);
+         result += (*val1) * (*val2);
+      }
+      vector_setl(c, j, result);
+   }
+   // Return the result of the operation.
+   return c;
+}
+
+/**
+ * {@inheritdoc}
+ */
 int matrix_scalar_mul(long double scalar, struct matrix *a)
 {
    long double *val;

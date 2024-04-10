@@ -370,6 +370,19 @@ struct matrix *matrix_mul(struct matrix *a, struct matrix *b);
  */
 int matrix_scalar_mul(long double scalar, struct matrix *a);
 
+/**
+ * Matrix by vector multiplication.
+ *
+ * @param struct matrix* a
+ *   The matrix object to be multiplied.
+ * @param struct vector* b
+ *   The vector object to be multiplied.
+ *
+ * @return struct vector*
+ *   The new vector instance with the product result; otherwise NULL.
+ */
+struct vector *matrix_mul_vector(struct matrix *a, struct vector *b);
+
 #endif
 
 #ifndef MATRIX_PRINT_H
