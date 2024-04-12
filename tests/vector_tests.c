@@ -126,6 +126,11 @@ int vector_tests()
    struct vector *result6 = vector_hadamard_product(a, b);
    vector_print(result6);
 
+   printf("------------ Vector Clone. ------------\n");
+   vector_print(a);
+   struct vector *result7 = vector_clone(a);
+   vector_print(result7);
+
    // Clear the used memory.
    vector_destroy(a);
    vector_destroy(b);
@@ -135,6 +140,7 @@ int vector_tests()
    vector_destroy(result4);
    vector_destroy(result5);
    vector_destroy(result6);
+   vector_destroy(result7);
    // Return success response.
    return 0;
 }

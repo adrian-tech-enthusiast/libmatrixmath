@@ -144,6 +144,31 @@ struct vector *vector_concatenate(struct vector *a, struct vector *b)
 /**
  * {@inheritdoc}
  */
+struct vector *vector_clone(struct vector *a)
+{
+   // Create the new vector to store the result of the operation.
+   struct vector *result = vector_create(a->capacity);
+   if (result == NULL)
+   {
+      return NULL;
+   }
+   // Copy values from vector a.
+   long double *val;
+   for (int i = 0; i < a->capacity; i++)
+   {
+      val = vector_getl(a, i);
+      if (val != NULL)
+      {
+         vector_setl(result, i, (*val));
+      }
+   }
+   // Return the result of the operation.
+   return result;
+}
+
+/**
+ * {@inheritdoc}
+ */
 int vector_walk(struct vector *a, long double (*callback)(long double))
 {
    long double *val;

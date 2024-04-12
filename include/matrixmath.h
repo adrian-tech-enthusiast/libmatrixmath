@@ -25,7 +25,7 @@ struct vector {
    int capacity;
 };
 
-/*
+/**
  * Create a new vector object instance.
  *
  * @param const int capacity
@@ -73,7 +73,7 @@ long double *vector_setl(struct vector *object, int index, long double value);
  */
 long double *vector_getl(struct vector *object, int index);
 
-/*
+/**
  * Concatenate two given vectors.
  *
  * Concatenates the elements of one or more vectors together so that the values
@@ -89,7 +89,18 @@ long double *vector_getl(struct vector *object, int index);
  */
 struct vector *vector_concatenate(struct vector *a, struct vector *b);
 
-/*
+/**
+ * Creating a copy of the given vector.
+ *
+ * @param struct vector *a
+ *   The vector to copy.
+ *
+ * @return struct vector*
+ *   The pointer to the copy of the vector, otherwise NULL.
+ */
+struct vector *vector_clone(struct vector *a);
+
+/**
  * Apply a user supplied function to every member of an vector.
  *
  * @param struct vector *a
