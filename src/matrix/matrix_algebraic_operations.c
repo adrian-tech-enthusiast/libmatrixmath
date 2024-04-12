@@ -137,7 +137,7 @@ struct vector *matrix_mul_vector(struct matrix *a, struct vector *b)
       return NULL;
    }
    // Create the new Vector to store the result of the operation.
-   struct vector *c = vector_create(b->capacity);
+   struct vector *c = vector_create(a->rows);
    if (c == NULL)
    {
       return NULL;
