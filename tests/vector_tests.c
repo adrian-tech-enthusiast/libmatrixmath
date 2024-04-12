@@ -109,7 +109,6 @@ int vector_tests()
    vector_print(b);
    vector_print(result4);
 
-
    printf("------------ Vector Walk. ------------\n");
    capacity = 5;
    struct vector *result5 = vector_create(capacity);
@@ -121,6 +120,12 @@ int vector_tests()
    vector_walk(result5, &cube);
    vector_print(result5);
 
+   printf("------------ Vector Hadamard product. ------------\n");
+   vector_print(a);
+   vector_print(b);
+   struct vector *result6 = vector_hadamard_product(a, b);
+   vector_print(result6);
+
    // Clear the used memory.
    vector_destroy(a);
    vector_destroy(b);
@@ -129,6 +134,7 @@ int vector_tests()
    vector_destroy(result3);
    vector_destroy(result4);
    vector_destroy(result5);
+   vector_destroy(result6);
    // Return success response.
    return 0;
 }
