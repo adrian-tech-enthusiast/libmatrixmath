@@ -24,12 +24,12 @@ To get started with the C Matrix Math Library, simply clone the repository and f
 
 To make sure you obtain the most updated stable version of [shared library](https://en.wikipedia.org/wiki/Library_(computing)#Shared_libraries)(a DLL in Windows or .so in Unix/Linux), you’ll download this software from its [official Github repository](https://github.com/adrian-tech-enthusiast/libmatrixmath).
 
-First, confirm the latest version available in their [releases page](https://github.com/adrian-tech-enthusiast/libmatrixmath/releases). At the time of this writing, the most current stable version is `1.0.2`.
+First, confirm the latest version available in their [releases page](https://github.com/adrian-tech-enthusiast/libmatrixmath/releases). At the time of this writing, the most current stable version is `1.0.3`.
 
-1. The following command will download the `1.0.2` release and save the shared library file at /usr/local/lib/libmatrixmath.so, which will make this library globally accessible to clients:
+1. The following command will download the `1.0.3` release and save the shared library file at /usr/local/lib/libmatrixmath.so, which will make this library globally accessible to clients:
 
     ```bash
-    sudo curl -L "https://github.com/adrian-tech-enthusiast/libmatrixmath/releases/download/v1.0.2/libmatrixmath.so" -o /usr/local/lib/libmatrixmath.so
+    sudo curl -L "https://github.com/adrian-tech-enthusiast/libmatrixmath/releases/download/v1.0.3/libmatrixmath.so" -o /usr/local/lib/libmatrixmath.so
     ```
 
 2. Next, We need to tell the loader it is available for use, so let us update the cache, invoke the `ldconfig` utility, which configures the system's dynamic loader. This configuration ensures that the loader will find the newly published library:
@@ -47,7 +47,7 @@ First, confirm the latest version available in their [releases page](https://git
 3. Copy the library header file(`matrixmath.h`) to where it can be included in one of the C compiler's search path. Typical locations are `/usr/include` and `/usr/local/include`;
 
     ```bash
-    sudo curl -L "https://raw.githubusercontent.com/adrian-tech-enthusiast/libmatrixmath/v1.0.2/include/matrixmath.h" -o /usr/local/include/matrixmath.h;
+    sudo curl -L "https://raw.githubusercontent.com/adrian-tech-enthusiast/libmatrixmath/v1.0.3/include/matrixmath.h" -o /usr/local/include/matrixmath.h;
     ```
 
     This allows the library header file to be included in your C project as follows:
