@@ -112,6 +112,42 @@ long double *vector_dot_product(struct vector *a, struct vector *b)
 /**
  * {@inheritdoc}
  */
+struct vector *vector_hadamard_product(struct vector *a, struct vector *b)
+{
+   // Check the size of the two vector matches.
+   if (a->capacity != b->capacity)
+   {
+      return NULL;
+   }
+   // Create the new vector to store the result of the operation.
+   struct vector *result = vector_create(a->capacity);
+   if (result == NULL)
+   {
+      return NULL;
+   }
+   // Multiply values.
+   long double *val1;
+   long double *val2;
+   long double mul;
+   for (int i = 0; i < a->capacity; i++)
+   {
+      val1 = vector_getl(a, i);
+      val2 = vector_getl(b, i);
+      if (val1 == NULL || val2 == NULL)
+      {
+         free(result);
+         return NULL;
+      }
+      mul = (*val1) * (*val2);
+      vector_setl(result, i, mul);
+   }
+   // Return the result of the operation.
+   return result;
+}
+
+/**
+ * {@inheritdoc}
+ */
 struct vector *vector_scalar_mul(long double scalar, struct vector *a)
 {
    // Create the new vector to store the result of the operation.

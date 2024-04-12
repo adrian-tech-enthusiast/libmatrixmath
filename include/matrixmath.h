@@ -147,6 +147,23 @@ struct vector *vector_sub(struct vector *a, struct vector *b);
 long double *vector_dot_product(struct vector *a, struct vector *b);
 
 /**
+ * Vector Hadamard product (also known as the element-wise product or entrywise product).
+ *
+ * The Hadamard product is an element-wise product. If we have a vector a = [1, 2, 3] and
+ * a vector b = [9, 10, 11], then the Hadamard product would be
+ * c = a * b = [(1*9), (2*10), (3*11)] = [9, 20, 33].
+ *
+ * @param struct vector* a
+ *   The first vector object to be multiplied.
+ * @param struct vector* b
+ *   The second vector object to be multiplied.
+ *
+ * @return struct vector *
+ *   The new vector instance with the Hadamard product of the two given vectors; otherwise NULL.
+ */
+struct vector *vector_hadamard_product(struct vector *a, struct vector *b);
+
+/**
  * Vector multiplication by a scalar.
  *
  * @param long double scalar
