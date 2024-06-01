@@ -1,35 +1,35 @@
-# Lib Matrix Math: A high-performance C library for efficient Linear Algebra computations with essential functionality for matrix and vector operations.
+## Lib Matrix Math: A high-performance C library for efficient Linear Algebra computations with essential functionality for matrix and vector operations.
 
 Welcome to the C Matrix Math Library, A robust C library tailored for linear algebra computations, offering essential functionality for matrix and vector operations. Whether you're a beginner or an experienced developer, this library provides a powerful toolkit to handle various mathematical tasks with ease.
 
 Equipped with optimized algorithms and a user-friendly API, it provides the foundation for efficient numerical computations in diverse fields such as scientific computing, machine learning, and computer graphics. Simplify complex mathematical tasks and accelerate your projects with ease using this versatile and reliable tool.
 
-## Features
+### Features
 
 - **Matrix Operations**: Perform common matrix operations such as addition, subtraction, multiplication, and transposition.
 - **Vector Operations**: Efficiently handle vector manipulations including dot product, cross product, and vector scaling.
 - **Documentation**: Comprehensive documentation and examples are provided to help you get started quickly and easily.
 - **Open Source**: The library is open source and actively maintained, allowing for community contributions and enhancements.
 
-## Prerequisites
+### Prerequisites
 
 - C compiler (e.g., GCC, Clang)
 - Make build system (optional)
 
-## Getting Started
+### Getting Started
 
 To get started with the C Matrix Math Library, simply clone the repository and follow the installation instructions below, once installed, explore the documentation and examples to start incorporating LSTM functionality into your C projects.
 
-## Installation
+### Installation
 
 To make sure you obtain the most updated stable version of [shared library](https://en.wikipedia.org/wiki/Library_(computing)#Shared_libraries)(a DLL in Windows or .so in Unix/Linux), you’ll download this software from its [official Github repository](https://github.com/adrian-tech-enthusiast/libmatrixmath).
 
-First, confirm the latest version available in their [releases page](https://github.com/adrian-tech-enthusiast/libmatrixmath/releases). At the time of this writing, the most current stable version is `1.0.3`.
+First, confirm the latest version available in their [releases page](https://github.com/adrian-tech-enthusiast/libmatrixmath/releases). At the time of this writing, the most current stable version is `1.1.0`.
 
-1. The following command will download the `1.0.3` release and save the shared library file at /usr/local/lib/libmatrixmath.so, which will make this library globally accessible to clients:
+1. The following command will download the `1.1.0` release and save the shared library file at /usr/local/lib/libmatrixmath.so, which will make this library globally accessible to clients:
 
     ```bash
-    sudo curl -L "https://github.com/adrian-tech-enthusiast/libmatrixmath/releases/download/v1.0.3/libmatrixmath.so" -o /usr/local/lib/libmatrixmath.so
+    sudo curl -L "https://github.com/adrian-tech-enthusiast/libmatrixmath/releases/download/v1.1.0/libmatrixmath.so" -o /usr/local/lib/libmatrixmath.so
     ```
 
 2. Next, We need to tell the loader it is available for use, so let us update the cache, invoke the `ldconfig` utility, which configures the system's dynamic loader. This configuration ensures that the loader will find the newly published library:
@@ -47,7 +47,7 @@ First, confirm the latest version available in their [releases page](https://git
 3. Copy the library header file(`matrixmath.h`) to where it can be included in one of the C compiler's search path. Typical locations are `/usr/include` and `/usr/local/include`;
 
     ```bash
-    sudo curl -L "https://raw.githubusercontent.com/adrian-tech-enthusiast/libmatrixmath/v1.0.3/include/matrixmath.h" -o /usr/local/include/matrixmath.h;
+    sudo curl -L "https://raw.githubusercontent.com/adrian-tech-enthusiast/libmatrixmath/v1.1.0/include/matrixmath.h" -o /usr/local/include/matrixmath.h;
     ```
 
     This allows the library header file to be included in your C project as follows:
@@ -64,7 +64,7 @@ First, confirm the latest version available in their [releases page](https://git
     gcc -o tester tester.c -lmatrixmath
     ```
 
-## Example Usage
+### Example Usage
 
 Here's a basic example demonstrating how to use CMatrixMath to perform matrix multiplication:
 
@@ -95,7 +95,7 @@ int main() {
 }
 ```
 
-## Contributions
+### Contributions
 
 Contributions to the C Matrix Math Library are welcome! Whether it's reporting issues, suggesting new features, or submitting pull requests, we appreciate any and all contributions from the community.
 
@@ -107,11 +107,11 @@ If you'd like to contribute, please follow these steps:
 4. Push to the branch (git push origin feature/my-feature)
 5. Create a new Pull Request
 
-## License
+### License
 
 This library is licensed under the `GNU General Public License v3.0` License. See the LICENSE file for details.
 
-## Acknowledgments
+### Acknowledgments
 
 - Inspired by the need for efficient linear algebra operations in C.
 - Special thanks to contributors and open-source libraries that provided inspiration and guidance.
