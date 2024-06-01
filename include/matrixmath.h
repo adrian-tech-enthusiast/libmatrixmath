@@ -37,12 +37,33 @@ struct vector {
 struct vector *vector_create(const int capacity);
 
 /**
+ * Creates multiple vectors.
+ *
+ * @param int size
+ *   This represents the number of vectors to allocate space for.
+ *
+ * @return struct vector**
+ *   The list of vector items.
+ */
+struct vector **vector_create_multiple(int size);
+
+/**
  * Free the memory associted to a vector object.
  *
  * @param struct vector* object
  *   The vector object to be clean.
  */
 void vector_destroy(struct vector *object);
+
+/**
+ * Destroys multiple vectors.
+ *
+ * @param struct vector **items
+ *   The list of vectors to destroy.
+ * @param int size
+ *   The number of vectors to destroy.
+ */
+void vector_destroy_multiple(struct vector **items, int size);
 
 /**
  * Sets the long double value at the specified index in the given vector.
@@ -113,6 +134,16 @@ struct vector *vector_clone(struct vector *a);
  */
 int vector_walk(struct vector *a, long double (*callback)(long double));
 
+/**
+ * Set the given value in all elements of the given vector.
+ *
+ * @param struct vector* object
+ *   The vector object.
+ * @param const long double value
+ *   The value to set in the vector.
+ */
+void vector_fill(struct vector *object, const long double value);
+
 #endif
 
 #ifndef VECTOR_ALGEBRAIC_OPERATIONS_H
@@ -132,6 +163,21 @@ int vector_walk(struct vector *a, long double (*callback)(long double));
 struct vector *vector_add(struct vector *a, struct vector *b);
 
 /**
+ * Vector addition with destination.
+ *
+ * @param struct vector* a
+ *   The first vector object to be added.
+ * @param struct vector* b
+ *   The second vector object to be added.
+ * @param struct matrix* dest
+ *   The destination vector where the results of the operation will be stored.
+ *
+ * @return int
+ *   Returns 0 when the operation succeeded, otherwise 1.
+ */
+int vector_add_dest(struct vector *a, struct vector *b, struct vector *dest);
+
+/**
  * Vector subtraction.
  *
  * @param struct vector* a
@@ -143,6 +189,20 @@ struct vector *vector_add(struct vector *a, struct vector *b);
  *   The new vector instance with the subtraction of the two given vectors; otherwise NULL.
  */
 struct vector *vector_sub(struct vector *a, struct vector *b);
+/**
+ * Vector subtraction with destination.
+ *
+ * @param struct vector* a
+ *   The first vector object to be subtracted.
+ * @param struct vector* b
+ *   The second vector object to be subtracted.
+ * @param struct matrix* dest
+ *   The destination vector where the results of the operation will be stored.
+ *
+ * @return int
+ *   Returns 0 when the operation succeeded, otherwise 1.
+ */
+int vector_sub_dest(struct vector *a, struct vector *b, struct vector *dest);
 
 /**
  * Vector multiplication: dot product.
@@ -186,6 +246,34 @@ struct vector *vector_hadamard_product(struct vector *a, struct vector *b);
  *   The new vector instance with the multiplication; otherwise NULL.
  */
 struct vector *vector_scalar_mul(long double scalar, struct vector *a);
+
+/**
+ * Vector multiplication by a scalar with destination.
+ *
+ * @param long double scalar
+ *   The scalar to be multiplied.
+ * @param struct vector* a
+ *   The second vector object to be multiplied.
+ * @param struct matrix* dest
+ *   The destination vector where the results of the operation will be stored.
+ *
+ * @return int
+ *   Returns 0 when the operation succeeded, otherwise 1.
+ */
+int vector_scalar_mul_dest(long double scalar, struct vector *a, struct vector *dest);
+
+/**
+ * Vector subtraction by a scalar.
+ *
+ * @param long double scalar
+ *   The scalar to be subtracted.
+ * @param struct vector* a
+ *   The second vector object to be subtracted.
+ *
+ * @return struct vector*
+ *   The new vector instance with the subtraction; otherwise NULL.
+ */
+struct vector *vector_scalar_sub(long double scalar, struct vector *a);
 
 #endif
 
@@ -325,6 +413,16 @@ long double *matrix_getl(struct matrix *object, int j, int k);
 struct matrix *matrix_from_array(long double *array, const int rows, const int columns);
 
 /**
+ * Set the given value in all elements of the given matrix.
+ *
+ * @param struct matrix* object
+ *   The matrix object.
+ * @param const long double value
+ *   The value to set in the matrix.
+ */
+void matrix_fill(struct matrix *object, const long double value);
+
+/**
  * Set the values of the matrix from the given array.
  *
  * @param long double *array
@@ -360,6 +458,21 @@ void matrix_fill_from_array(long double *array, struct matrix *object, const int
 struct matrix *matrix_add(struct matrix *a, struct matrix *b);
 
 /**
+ * Matrix addition with destination.
+ *
+ * @param struct matrix* a
+ *   The first matrix object to be added.
+ * @param struct matrix* b
+ *   The second matrix object to be added.
+ * @param struct matrix* dest
+ *   The destination matrix where the results of the operation will be stored.
+ *
+ * @return int
+ *   Returns 0 when the operation succeeded, otherwise 1.
+ */
+int matrix_add_dest(struct matrix *a, struct matrix *b, struct matrix *dest);
+
+/**
  * Matrix subtraction.
  *
  * @param struct matrix* a
@@ -371,6 +484,21 @@ struct matrix *matrix_add(struct matrix *a, struct matrix *b);
  *   The new matrix instance with the subtraction of the two given matrixes; otherwise NULL.
  */
 struct matrix *matrix_sub(struct matrix *a, struct matrix *b);
+
+/**
+ * Matrix subtraction with destination.
+ *
+ * @param struct matrix* a
+ *   The first matrix object to be subtracted.
+ * @param struct matrix* b
+ *   The second matrix object to be subtracted.
+ * @param struct matrix* dest
+ *   The destination matrix where the results of the operation will be stored.
+ *
+ * @return int
+ *   Returns 0 when the operation succeeded, otherwise 1.
+ */
+int matrix_sub_dest(struct matrix *a, struct matrix *b, struct matrix *dest);
 
 /**
  * Matrix multiplication.
@@ -393,10 +521,23 @@ struct matrix *matrix_mul(struct matrix *a, struct matrix *b);
  * @param struct matrix* a
  *   The second matrix object to be multiplied.
  *
+ * @return struct matrix*
+ *   The new matrix instance with the result of the multiplication; otherwise NULL.
+ */
+struct matrix *matrix_scalar_mul(long double scalar, struct matrix *a);
+
+/**
+ * Matrix multiplication by a scalar.
+ *
+ * @param long double scalar
+ *   The scalar to be multiplied.
+ * @param struct matrix* a
+ *   The second matrix object to be multiplied.
+ *
  * @return int
  *   Returns 0 when the operation succeeded, otherwise 1.
  */
-int matrix_scalar_mul(long double scalar, struct matrix *a);
+int matrix_scalar_mul_dest(long double scalar, struct matrix *a, struct matrix *dest);
 
 /**
  * Matrix by vector multiplication.
@@ -410,6 +551,17 @@ int matrix_scalar_mul(long double scalar, struct matrix *a);
  *   The new vector instance with the product result; otherwise NULL.
  */
 struct vector *matrix_mul_vector(struct matrix *a, struct vector *b);
+
+/**
+ * Transpose the given matrix.
+ *
+ * @param struct matrix* a
+ *   The matrix object to transpose.
+ *
+ * @return struct matrix*
+ *   The new transposed matrix instance; otherwise NULL.
+ */
+struct matrix *matrix_transpose(struct matrix *a);
 
 #endif
 
@@ -428,6 +580,17 @@ void matrix_print(struct matrix *object);
 
 #ifndef MATRIX_CASTING_H
 #define MATRIX_CASTING_H
+
+/**
+ * Convert the given matrix into a vector.
+ *
+ * @param struct matrix* m
+ *   The matrix object to be type casted.
+ *
+ * @return struct vector*
+ *   The pointer to the new vector instance, otherwise NULL.
+ */
+struct vector *matrix_to_vector(struct matrix *m);
 
 /*
  * Convert the given vector into a one column matrix.

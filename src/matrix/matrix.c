@@ -60,6 +60,8 @@ void matrix_destroy(struct matrix *object)
          vector_destroy(object->items[i]);
       }
    }
+   free(object->items);
+   object->items = NULL;
    // Free the object.
    free(object);
    object = NULL;
@@ -150,4 +152,15 @@ void matrix_fill_from_array(long double *array, struct matrix *object, const int
          matrix_setl(object, j, k, *value);
       }
    }
+}
+
+/**
+ * {@inheritdoc}
+ */
+void matrix_fill(struct matrix *object, const long double value) {
+  for (size_t j = 0; j < object->rows; j++) {
+    for (size_t k = 0; k < object->columns; k++) {
+      matrix_setl(object, j, k, value);
+    }
+  }
 }

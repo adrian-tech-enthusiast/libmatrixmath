@@ -41,6 +41,16 @@ struct vector *vector_create(const int capacity)
 /**
  * {@inheritdoc}
  */
+struct vector **vector_create_multiple(int size) {
+  // Try to set the requested the items memory.
+  size_t items_size = sizeof(struct vector *) * size;
+  struct vector **items = (struct vector **)malloc(items_size);
+  return items;
+}
+
+/**
+ * {@inheritdoc}
+ */
 void vector_destroy(struct vector *object)
 {
    if (object == NULL)
@@ -56,6 +66,22 @@ void vector_destroy(struct vector *object)
    // Free the object.
    free(object);
    object = NULL;
+}
+
+/**
+ * Destroys multiple vectors.
+ *
+ * @param struct vector **items
+ *   The list of vectors to destroy.
+ * @param int size
+ *   The number of vectors to destroy.
+ */
+void vector_destroy_multiple(struct vector **items, int size) {
+  for (size_t i = 0; i < size; i++) {
+    vector_destroy(items[i]);
+  }
+  free(items);
+  items = NULL;
 }
 
 /**
@@ -182,4 +208,13 @@ int vector_walk(struct vector *a, long double (*callback)(long double))
       vector_setl(a, i, callback(*val));
    }
    return 1;
+}
+
+/**
+ * {@inheritdoc}
+ */
+void vector_fill(struct vector *object, const long double value) {
+  for (size_t i = 0; i < object->capacity; i++) {
+    vector_setl(object, i, value);
+  }
 }
