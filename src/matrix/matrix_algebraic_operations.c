@@ -44,6 +44,37 @@ struct matrix *matrix_add(struct matrix *a, struct matrix *b)
 /**
  * {@inheritdoc}
  */
+int matrix_add_dest(struct matrix *a, struct matrix *b, struct matrix *dest) {
+  // For matrices to be added together they must have identical dimensions.
+  if (a->rows != b->rows || a->columns != b->columns) {
+    return 1;
+  }
+  // Check if the destination matrix matches the expected dimensions.
+  if (dest->rows != a->rows || dest->columns != a->columns) {
+    return 1;
+  }
+  // Sum the values.
+  long double *val1;
+  long double *val2;
+  long double sum = 0;
+  for (int j = 0; j < a->rows; j++) {
+    for (int k = 0; k < a->columns; k++) {
+      val1 = matrix_getl(a, j, k);
+      val2 = matrix_getl(b, j, k);
+      if (val1 == NULL || val2 == NULL) {
+        return 1;
+      }
+      sum = *val1 + *val2;
+      matrix_setl(dest, j, k, sum);
+    }
+  }
+  // Return the result of the operation.
+  return 0;
+}
+
+/**
+ * {@inheritdoc}
+ */
 struct matrix *matrix_sub(struct matrix *a, struct matrix *b)
 {
    // For matrices to be subtracted together they must have identical dimensions.
@@ -57,7 +88,7 @@ struct matrix *matrix_sub(struct matrix *a, struct matrix *b)
    {
       return NULL;
    }
-   // Sum the values.
+   // Subtract the values.
    long double *val1;
    long double *val2;
    long double sub = 0;
@@ -78,6 +109,37 @@ struct matrix *matrix_sub(struct matrix *a, struct matrix *b)
    }
    // Return the result of the operation.
    return result;
+}
+
+/**
+ * {@inheritdoc}
+ */
+int matrix_sub_dest(struct matrix *a, struct matrix *b, struct matrix *dest) {
+  // For matrices to be subtracted together they must have identical dimensions.
+  if (a->rows != b->rows || a->columns != b->columns) {
+    return 1;
+  }
+  // Check if the destination matrix matches the expected dimensions.
+  if (dest->rows != a->rows || dest->columns != a->columns) {
+    return 1;
+  }
+  // Subtract the values.
+  long double *val1;
+  long double *val2;
+  long double sub = 0;
+  for (int j = 0; j < a->rows; j++) {
+    for (int k = 0; k < a->columns; k++) {
+      val1 = matrix_getl(a, j, k);
+      val2 = matrix_getl(b, j, k);
+      if (val1 == NULL || val2 == NULL) {
+        return 1;
+      }
+      sub = *val1 - *val2;
+      matrix_setl(dest, j, k, sub);
+    }
+  }
+  // Return the result of the operation.
+  return 0;
 }
 
 /**
@@ -164,8 +226,39 @@ struct vector *matrix_mul_vector(struct matrix *a, struct vector *b)
 /**
  * {@inheritdoc}
  */
-int matrix_scalar_mul(long double scalar, struct matrix *a)
+struct matrix *matrix_scalar_mul(long double scalar, struct matrix *a)
 {
+   // Create the new Matrix to store the result of the operation.
+   struct matrix *result = matrix_create(a->rows, a->columns);
+   if (result == NULL) {
+      return NULL;
+   }
+   // Mul the values.
+   long double *val;
+   long double mul;
+   for (int j = 0; j < a->rows; j++)
+   {
+      for (int k = 0; k < a->columns; k++)
+      {
+         val = matrix_getl(a, j, k);
+         if (val == NULL)
+         {
+            return NULL;
+         }
+         mul = scalar * (*val);
+         matrix_setl(result, j, k, mul);
+      }
+   }
+   // Return the result of the operation.
+   return NULL;
+}
+
+/**
+ * {@inheritdoc}
+ */
+int matrix_scalar_mul_dest(long double scalar, struct matrix *a, struct matrix *dest)
+{
+   // Mul the values.
    long double *val;
    long double mul;
    for (int j = 0; j < a->rows; j++)
@@ -178,8 +271,33 @@ int matrix_scalar_mul(long double scalar, struct matrix *a)
             return 1;
          }
          mul = scalar * (*val);
-         matrix_setl(a, j, k, mul);
+         matrix_setl(dest, j, k, mul);
       }
    }
+   // Return the result of the operation.
    return 0;
+}
+
+/**
+ * {@inheritdoc}
+ */
+struct matrix *matrix_transpose(struct matrix *a) {
+  // Check if the input matrix is NULL.
+  if (a == NULL) {
+    return NULL;
+  }
+  // Create the transposed matrix.
+  struct matrix *transposed = matrix_create(a->columns, a->rows);
+  if (transposed == NULL) {
+    return NULL;
+  }
+  // Fill the transposed matrix.
+  long double *value;
+  for (int i = 0; i < a->rows; ++i) {
+    for (int j = 0; j < a->columns; ++j) {
+      value = matrix_getl(a, i, j);
+      matrix_setl(transposed, j, i, *value);
+    }
+  }
+  return transposed;
 }

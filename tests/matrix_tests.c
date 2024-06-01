@@ -32,7 +32,7 @@ int matrix_tests()
 
     // Test Scalar multiplication.
     printf("------------ Matrix multiplication by a scalar[4.5]. ------------\n");
-    matrix_scalar_mul(4.5, matrix_a);
+    matrix_scalar_mul_dest(4.5, matrix_a, matrix_a);
     matrix_print(matrix_a);
 
     // Test Matrix addition.
