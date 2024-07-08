@@ -8,21 +8,21 @@
  */
 struct vector {
 
-   /**
-    * Pointer to the vectors items in the chain.
-    *
-    * Allow you to walk array/object chains.
-    *
-    * @var void **items.
-    */
-   void **items;
+  /**
+   * Pointer to the vectors items in the chain.
+   *
+   * Allow you to walk array/object chains.
+   *
+   * @var void **items.
+   */
+  void **items;
 
-   /**
-    * The maximum amount elements that the vector instance can contain.
-    *
-    * @var int capacity.
-    */
-   int capacity;
+  /**
+   * The maximum amount elements that the vector instance can contain.
+   *
+   * @var int capacity.
+   */
+  int capacity;
 };
 
 /**
@@ -294,35 +294,39 @@ void vector_print(struct vector *object);
 #define MATRIX_H
 
 /**
- * The data struct definition for an individual matrix object.
+ * The data struct definition for a matrix object using row-major order.
  *
  * Definition: A matrix, like a vector, is also a collection of numbers.
  * The difference is that a matrix is a table of numbers rather than a list.
+ * This struct uses row-major order for organizing and accessing elements in the matrix.
  */
 struct matrix {
 
-   /**
-    * Pointer to the row vectors in the chain.
-    *
-    * Allow you to walk array/object chains.
-    *
-    * @var void **items.
-    */
-   void **items;
+  /**
+   * Pointer to the row vectors in the chain.
+   *
+   * Allow you to walk array/object chains. this pointer points to an
+   * array of row vectors, where each row vector contains the elements
+   * of the matrix in row-major order. The type of the elements is
+   * determined by the context in which this struct is used.
+   *
+   * @var void **items.
+   */
+  void **items;
 
-   /**
-    * The number of rows in the matrix.
-    *
-    * @var int rows.
-    */
-   int rows;
+  /**
+   * The number of rows in the matrix.
+   *
+   * @var int rows.
+   */
+  int rows;
 
-   /**
-    * The number of columns in the matrix.
-    *
-    * @var int columns.
-    */
-   int columns;
+  /**
+   * The number of columns in the matrix.
+   *
+   * @var int columns.
+   */
+  int columns;
 };
 
 /*

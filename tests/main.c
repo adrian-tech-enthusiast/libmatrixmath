@@ -1,5 +1,6 @@
 #include "vector_tests.h"
 #include "matrix_tests.h"
+#include "vector_serializer_tests.h"
 
 /**
  * Main controller function.
@@ -12,10 +13,10 @@
  * @return int
  *   The constant that represent the exit status.
  */
-int main(int argc, char const *argv[])
-{
-   vector_tests();
-   matrix_tests();
-   // Return success response.
-   return 0;
+int main(int argc, char const *argv[]) {
+  vector_tests();
+  matrix_tests();
+  vector_serializer_tests();
+  // Return success response.
+  return 0;
 }
