@@ -201,6 +201,11 @@ install_library_from_local() {
     echo "Installing $library_name library into '/usr/local/lib/'..."
     # Install the library.
     cp "$file" /usr/local/lib/;
+    # Check if the file was successfully copied.
+    if [[ ! -f "/usr/local/lib/$library_name" ]]; then
+      echo "Error: Failed to install $library_name library."
+      exit 1
+    fi
   done
 
   # Install header files to /usr/local/include.
@@ -210,6 +215,11 @@ install_library_from_local() {
     header_name=$(basename "$file");
     echo "Installing $header_name header into '/usr/local/include/'..."
     cp "$file" /usr/local/include/;
+    # Check if the file was successfully copied.
+    if [[ ! -f "/usr/local/include/$header_name" ]]; then
+      echo "Error: Failed to install $header_name header."
+      exit 1
+    fi
   done
 }
 

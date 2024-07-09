@@ -68,6 +68,8 @@ clean_directory "$BIN_PATH";
 # Build 'matrixmath' project.
 build_matrixmath_project "$PROJECT_PATH";
 # Install the project in the local system from source.
+set -x;
 sudo "$SCRIPT_DIR/install_from_local.sh";
+set +x;
 # Build 'matrixmath_serializer' project.
 build_matrixmath_serializer_project "$PROJECT_PATH";
