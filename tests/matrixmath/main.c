@@ -1,6 +1,5 @@
 #include "vector_tests.h"
 #include "matrix_tests.h"
-#include "vector_serializer_tests.h"
 
 /**
  * Main controller function.
@@ -16,7 +15,6 @@
 int main(int argc, char const *argv[]) {
   vector_tests();
   matrix_tests();
-  vector_serializer_tests();
   // Return success response.
   return 0;
 }

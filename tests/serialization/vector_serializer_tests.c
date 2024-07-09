@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/matrixmath_serializer.h"
+#include "../../include/matrixmath_serializer.h"
 #include "vector_serializer_tests.h"
 
 /**

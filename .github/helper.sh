@@ -21,6 +21,7 @@
 # - remove_precompiled_headers: Removes precompiled header files from a specified directory.
 # - clean_project_precompiled_headers: Cleans precompiled header files from the project directories.
 # - ensure_sudo: Ensures the script or function is run with sudo privileges.
+# - build_project: Orchestrates the entire build process for the project.
 
 # Function to get the list of code files to compile.
 #
@@ -73,7 +74,7 @@ build_app() {
 
   # clean up build and bin folder.
   clean_directory "$build_path";
-  clean_directory "$bin_path";
+  rm -rf "$bin_path/$app_name";
 
   # Go to the build path.
   cd "$build_path" || exit;
@@ -318,4 +319,56 @@ clean_project_precompiled_headers() {
   remove_precompiled_headers "$project_path/src";
   remove_precompiled_headers "$project_path/include";
   remove_precompiled_headers "$project_path/tests";
+}
+
+# Function to build the project.
+#
+# Arguments:
+#   $1: Base name for the project.
+#   $2: Root path of the project.
+#   $3: Dependencies for tests.
+#   $4: Dependencies for libraries.
+#   $5: The project namespace.
+#
+# Usage:
+#   build_project "project_base_name" "/path/to/project" "test_dependencies" "library_dependencies" "namespace";
+build_project() {
+  # Get arguments.
+  local base_name="$1"; # Base name for the project.
+  local project_path="$2"; # Root path of the project.
+  local test_dependencies="$3"; # Dependencies for tests.
+  local library_dependencies="$4"; # Dependencies for libraries.
+  local project_namespace="$5"; # The project namespace.
+
+  # Search paths for library and test code.
+  local library_code_search_paths="$project_path/include $project_path/src/$project_namespace";
+  local test_code_search_paths="$library_code_search_paths $project_path/tests/$project_namespace";
+
+  # Build paths.
+  local base_build_path="$project_path/build/$project_namespace";
+  local library_build_path="$base_build_path/library";
+  local test_build_path="$base_build_path/test";
+
+  # Output paths.
+  local bin_path="$project_path/bin";
+  local app_name="$base_name.app";
+
+  # Clean up build directory before start the build.
+  clean_directory "$base_build_path";
+
+  # Build the main app.
+  local app_files_to_compile;
+  app_files_to_compile=$(get_files_to_compile "$test_code_search_paths");
+  build_app "$app_files_to_compile" $test_build_path $app_name "$test_dependencies" $bin_path;
+
+  # Create shared and static libraries.
+  local library_files_to_compile;
+  library_files_to_compile=$(get_files_to_compile "$library_code_search_paths");
+  create_libraries "$library_files_to_compile" $library_build_path $base_name "$library_dependencies" $bin_path;
+
+  # Clean precompiled header files from the project directories.
+  clean_project_precompiled_headers "$project_path" > /dev/null;
+
+  # Test the APP execution.
+  "$bin_path/$app_name";
 }
