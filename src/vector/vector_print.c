@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../../../include/matrixmath.h"
+#include "../../include/matrixmath.h"
 #include "vector_item_print.h"
 
 /**

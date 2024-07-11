@@ -19,7 +19,6 @@ source "$SCRIPT_DIR/helper.sh";
 
 # Specify the root path of the project.
 PROJECT_PATH=$(pwd);
-BIN_PATH="$PROJECT_PATH/bin";
 
 # Build 'matrixmath' project.
 #
@@ -36,40 +35,11 @@ build_matrixmath_project() {
   local base_name='libmatrixmath';   # Base name for the project.
   local test_dependencies='-lm'; # Dependencies for tests (add as needed).
   local library_dependencies='-lm'; # Dependencies for library (add as needed).
-  local namespace='matrixmath'; # The project namespace.
+  local namespace=''; # The project namespace.
 
   # Build the project.
   build_project "$base_name" "$project_path" "$test_dependencies" "$library_dependencies" "$namespace";
 }
 
-# Build 'matrixmath_serializer' project.
-#
-# This function builds the 'matrixmath_serializer' project, including the main application and libraries.
-#
-# Arguments:
-#   $1 - Root path of the project.
-#
-# Usage:
-#   build_matrixmath_serializer_project "/path/to/project";
-build_matrixmath_serializer_project() {
-  # Project Settings.
-  local project_path="$1"; # Root path of the project.
-  local base_name='libmatrixmath_serializer';   # Base name for the project.
-  local test_dependencies='-lmatrixmath -ljson -lstr'; # Dependencies for tests (add as needed).
-  local library_dependencies='-lmatrixmath -ljson -lstr'; # Dependencies for library (add as needed).
-  local namespace='serialization'; # The project namespace.
-
-  # Build the project.
-  build_project "$base_name" "$project_path" "$test_dependencies" "$library_dependencies" "$namespace";
-}
-
-# Clean up build directory before start the build.
-clean_directory "$BIN_PATH";
 # Build 'matrixmath' project.
 build_matrixmath_project "$PROJECT_PATH";
-# Install the project in the local system from source.
-set -x;
-sudo "$SCRIPT_DIR/install_from_local.sh";
-set +x;
-# Build 'matrixmath_serializer' project.
-build_matrixmath_serializer_project "$PROJECT_PATH";

@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "../../../include/matrixmath.h"
+#include "../../include/matrixmath.h"
 #include "vector_item.h"
 
 /**

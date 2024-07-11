@@ -74,7 +74,7 @@ build_app() {
 
   # clean up build and bin folder.
   clean_directory "$build_path";
-  rm -rf "$bin_path/$app_name";
+  clean_directory "$bin_path";
 
   # Go to the build path.
   cd "$build_path" || exit;

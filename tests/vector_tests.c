@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../../include/matrixmath.h"
+#include "../include/matrixmath.h"
 #include "vector_tests.h"
 
 /**
