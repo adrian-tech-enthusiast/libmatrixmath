@@ -14,5 +14,5 @@ void vector_item_print(struct vector_item *object) {
   }
   // @todo: Add support for multiple types.
   long double *lvalue = (long double *)object->value;
-  printf("   [%.13Lf]\n", *lvalue);
+  printf("   %.13Lf\n", *lvalue);
 }
