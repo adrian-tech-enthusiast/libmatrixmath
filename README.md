@@ -1,8 +1,8 @@
 ## Lib Matrix Math: A high-performance C library for efficient Linear Algebra computations with essential functionality for matrix and vector operations.
 
-Welcome to the C Matrix Math Library, A robust C library tailored for linear algebra computations, offering essential functionality for matrix and vector operations. Whether you're a beginner or an experienced developer, this library provides a powerful toolkit to handle various mathematical tasks with ease.
+Welcome to the C Matrix Math Library, a robust C library tailored for linear algebra computations, offering essential functionality for matrix and vector operations. Whether you're a beginner or an experienced developer, this library provides a powerful toolkit to handle various mathematical tasks with ease.
 
-Equipped with optimized algorithms and a user-friendly API, it provides the foundation for efficient numerical computations in diverse fields such as scientific computing, machine learning, and computer graphics. Simplify complex mathematical tasks and accelerate your projects with ease using this versatile and reliable tool.
+Equipped with optimized algorithms and a user-friendly API, it provides the foundation for efficient numerical computations in diverse fields such as scientific computing, machine learning, and computer graphics. Simplify complex mathematical tasks and accelerate your projects with this versatile and reliable tool.
 
 ### Features
 
@@ -18,7 +18,7 @@ Equipped with optimized algorithms and a user-friendly API, it provides the foun
 
 ### Getting Started
 
-To get started with the C Matrix Math Library, simply clone the repository and follow the installation instructions below, once installed, explore the documentation and examples to start incorporating LSTM functionality into your C projects.
+To get started with the C Matrix Math Library, simply clone the repository and follow the installation instructions below. Once installed, explore the documentation and examples to start incorporating matrix and vector operations into your C projects.
 
 ### Installation
 

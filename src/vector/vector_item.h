@@ -4,22 +4,21 @@
 /**
  * The data struct definition for an individual vector item object.
  */
-struct vector_item
-{
+struct vector_item {
 
-   /**
-    * The item key used for indexing.
-    *
-    * @var int key.
-    */
-   int key;
+  /**
+   * The item key used for indexing.
+   *
+   * @var int key.
+   */
+  int key;
 
-   /**
-    * The value for the current entry.
-    *
-    * @var void* value.
-    */
-   void *value;
+  /**
+   * The value for the current entry.
+   *
+   * @var void* value.
+   */
+  void *value;
 };
 
 /**

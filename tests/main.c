@@ -12,10 +12,9 @@
  * @return int
  *   The constant that represent the exit status.
  */
-int main(int argc, char const *argv[])
-{
-   vector_tests();
-   matrix_tests();
-   // Return success response.
-   return 0;
+int main(int argc, char const *argv[]) {
+  vector_tests();
+  matrix_tests();
+  // Return success response.
+  return 0;
 }
