@@ -193,3 +193,18 @@ void vector_fill(struct vector *object, const long double value) {
     vector_setl(object, i, value);
   }
 }
+
+/**
+ * {@inheritdoc}
+ */
+int vector_copy(struct vector *src, struct vector *dest) {
+  if (src == NULL || dest == NULL || src->capacity != dest->capacity) {
+    return 1;
+  }
+  long double *val;
+  for (int i = 0; i < src->capacity; i++) {
+    val = vector_getl(src, i);
+    vector_setl(dest, i, *val);
+  }
+  return 0;
+}

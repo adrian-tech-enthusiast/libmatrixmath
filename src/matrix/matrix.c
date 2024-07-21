@@ -140,3 +140,20 @@ void matrix_fill(struct matrix *object, const long double value) {
     }
   }
 }
+
+/**
+ * {@inheritdoc}
+ */
+int matrix_copy(struct matrix *src, struct matrix *dest) {
+  if (src == NULL || dest == NULL || src->rows != dest->rows || src->columns != dest->columns) {
+    return 1;
+  }
+  long double *value;
+  for (int i = 0; i < src->rows; i++) {
+    for (int j = 0; j < src->columns; j++) {
+      value = matrix_getl(src, i, j);
+      matrix_setl(dest, i, j, *value);
+    }
+  }
+  return 0;
+}

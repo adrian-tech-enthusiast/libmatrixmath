@@ -144,6 +144,21 @@ int vector_walk(struct vector *a, long double (*callback)(long double));
  */
 void vector_fill(struct vector *object, const long double value);
 
+/**
+ * Copies the contents of one vector to another.
+ *
+ * This function assumes that both vectors have the same length.
+ *
+ * @param struct vector *src
+ *   Pointer to the source vector.
+ * @param struct vector *dest
+ *   Pointer to the destination vector.
+ *
+ * @return int
+ *   Returns 0 if successful, otherwise 1 if an error occurred.
+ */
+int vector_copy(struct vector *src, struct vector *dest);
+
 #endif
 
 #ifndef VECTOR_ALGEBRAIC_OPERATIONS_H
@@ -442,6 +457,21 @@ void matrix_fill(struct matrix *object, const long double value);
  *   Returns 1 if the given positions j and K are valid, otherwise 0.
  */
 void matrix_fill_from_array(long double *array, struct matrix *object, const int rows, const int columns);
+
+/**
+ * Copies the contents of one matrix to another.
+ *
+ * This function assumes that both matrices have the same dimensions.
+ *
+ * @param struct matrix *src
+ *   Pointer to the source matrix.
+ * @param struct matrix *dest
+ *   Pointer to the destination matrix.
+ *
+ * @return int
+ *   Returns 0 if successful, otherwise 1 if an error occurred.
+ */
+int matrix_copy(struct matrix *src, struct matrix *dest);
 
 #endif
 
