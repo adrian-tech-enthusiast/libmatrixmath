@@ -80,9 +80,9 @@ int matrix_tests() {
     vector_setl(vector_n, i, (i + 1));
   }
   matrix_print(matrix_n);
-  vector_print(vector_n);
+  vector_println(vector_n);
   struct vector *vector_o = matrix_mul_vector(matrix_n, vector_n);
-  vector_print(vector_o);
+  vector_println(vector_o);
 
   // Test Matix and Vector Nested Operations.
   printf("------------ Matrix and Vector Nested Operations. ------------\n");

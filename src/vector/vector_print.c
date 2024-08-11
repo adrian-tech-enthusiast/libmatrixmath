@@ -7,9 +7,22 @@
  * {@inheritdoc}
  */
 void vector_print(struct vector *object) {
-  printf("Vector: {\n");
+  printf("[");
   for (int i = 0; i < object->capacity; i++) {
+    // Print a comma and space to separate values after the first one.
+    if (i != 0) {
+      printf(", ");
+    }
+    // Print the current item value.
     vector_item_print(object->items[i]);
   }
-  printf("} \n");
+  printf("]");
+}
+
+/**
+ * {@inheritdoc}
+ */
+void vector_println(struct vector *object) {
+  vector_print(object);
+  printf("\n");
 }

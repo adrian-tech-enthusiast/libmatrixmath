@@ -51,15 +51,19 @@ void vector_destroy(struct vector *object) {
     return;
   }
   // Free the object items.
-  for (int i = 0; i < object->capacity; i++) {
-    vector_item_destroy(object->items[i]);
+  if (object->items != NULL) {
+    for (int i = 0; i < object->capacity; i++) {
+      if (object->items[i] != NULL) {
+        vector_item_destroy(object->items[i]);
+        object->items[i] = NULL;
+      }
+    }
+    free(object->items);
+    object->items = NULL;
   }
-  free(object->items);
-  object->items = NULL;
   object->capacity = 0;
   // Free the object.
   free(object);
-  object = NULL;
 }
 
 /**

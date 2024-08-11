@@ -14,7 +14,7 @@ void vector_item_destroy(struct vector_item *object) {
     free(object->value);
     object->value = NULL;
   }
-  // Free the item object.
+  // Free the vector_item itself.
   free(object);
   object = NULL;
 }

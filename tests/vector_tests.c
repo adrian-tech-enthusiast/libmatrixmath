@@ -58,7 +58,7 @@ int vector_tests() {
     vector_setl(VectorObject, i, value);
   }
   // Print the vector.
-  vector_print(VectorObject);
+  vector_println(VectorObject);
   // Get value at a specific position.
   long double *item_value = vector_getl(VectorObject, 2);
   printf("The value at position 2 is: [%Lf]\n", *item_value);
@@ -78,32 +78,32 @@ int vector_tests() {
   vector_setl(b, 1, 2);
 
   struct vector *result1 = vector_add(a, b);
-  vector_print(a);
-  vector_print(b);
-  vector_print(result1);
+  vector_println(a);
+  vector_println(b);
+  vector_println(result1);
 
   printf("------------ Vectors subtraction. ------------\n");
   struct vector *result2 = vector_sub(a, b);
-  vector_print(a);
-  vector_print(b);
-  vector_print(result2);
+  vector_println(a);
+  vector_println(b);
+  vector_println(result2);
 
   printf("------------ Vector multiplication: dot product. ------------\n");
   long double *scalar_result = vector_dot_product(a, b);
-  vector_print(a);
-  vector_print(b);
+  vector_println(a);
+  vector_println(b);
   printf("Vector multiplication - Dot product result is: [%Lf]\n", *scalar_result);
 
   printf("------------ Vector multiplication by a scalar[4.5]. ------------\n");
   struct vector *result3 = vector_scalar_mul(4.5, a);
-  vector_print(a);
-  vector_print(result3);
+  vector_println(a);
+  vector_println(result3);
 
   printf("------------ Vector concatenation. ------------\n");
   struct vector *result4 = vector_concatenate(a, b);
-  vector_print(a);
-  vector_print(b);
-  vector_print(result4);
+  vector_println(a);
+  vector_println(b);
+  vector_println(result4);
 
   printf("------------ Vector Walk. ------------\n");
   capacity = 5;
@@ -111,20 +111,20 @@ int vector_tests() {
   for (int i = 0; i < capacity; i++) {
     vector_setl(result5, i, (i + 1));
   }
-  vector_print(result5);
+  vector_println(result5);
   vector_walk(result5, &cube);
-  vector_print(result5);
+  vector_println(result5);
 
   printf("------------ Vector Hadamard product. ------------\n");
-  vector_print(a);
-  vector_print(b);
+  vector_println(a);
+  vector_println(b);
   struct vector *result6 = vector_hadamard_product(a, b);
-  vector_print(result6);
+  vector_println(result6);
 
   printf("------------ Vector Clone. ------------\n");
-  vector_print(a);
+  vector_println(a);
   struct vector *result7 = vector_clone(a);
-  vector_print(result7);
+  vector_println(result7);
 
   // Clear the used memory.
   vector_destroy(a);

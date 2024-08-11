@@ -303,6 +303,14 @@ struct vector *vector_scalar_sub(long double scalar, struct vector *a);
  */
 void vector_print(struct vector *object);
 
+/**
+ * Prints a vector object followed by a newline.
+ *
+ * @param struct vector* object
+ *   The vector object to be printed.
+ */
+void vector_println(struct vector *object);
+
 #endif
 
 #ifndef MATRIX_H
