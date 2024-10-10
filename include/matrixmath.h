@@ -365,6 +365,23 @@ struct matrix {
  */
 struct matrix *matrix_create(const int rows, const int columns);
 
+/*
+ * Create a new matrix object instance with random values between a given range.
+ *
+ * @param const int rows
+ *   The number of rows in the matrix.
+ * @param const int columns
+ *   The number of columns in the matrix.
+ * @param const long double min
+ *   The minimum value for random initialization.
+ * @param const long double max
+ *   The maximum value for random initialization.
+ *
+ * @return struct matrix*
+ *   The pointer to the matrix instance, otherwise NULL.
+ */
+struct matrix *matrix_create_random(const int rows, const int columns, const long double min, const long double max);
+
 /**
  * Free the memory associted to a matrix object.
  *
@@ -448,6 +465,18 @@ struct matrix *matrix_from_array(long double *array, const int rows, const int c
  *   The value to set in the matrix.
  */
 void matrix_fill(struct matrix *object, const long double value);
+
+/**
+ * Fill the given matrix with random values between a specified range.
+ *
+ * @param struct matrix *object
+ *   The matrix object to fill.
+ * @param const long double min
+ *   The minimum random value.
+ * @param const long double max
+ *   The maximum random value.
+ */
+void matrix_fill_random(struct matrix *object, const long double min, const long double max);
 
 /**
  * Set the values of the matrix from the given array.

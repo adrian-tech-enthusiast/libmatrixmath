@@ -5,13 +5,13 @@
  * {@inheritdoc}
  */
 struct matrix *matrix_create(const int rows, const int columns) {
-  if (!(rows > 0) || !(columns > 0)) {
+  if (rows <= 0 || columns <= 0) {
     // Matrix with no capacity not allowed.
     return NULL;
   }
-  // Allocate matrix memory space.
+  // Allocate memory for the matrix structure.
   size_t size = sizeof(struct matrix);
-  struct matrix *object = (struct matrix *)malloc(size);
+  struct matrix *object = malloc(size);
   if (object == NULL) {
     return NULL;
   }
@@ -20,7 +20,7 @@ struct matrix *matrix_create(const int rows, const int columns) {
   object->columns = columns;
   // Try to set the requested matrix capacity.
   size_t matrix_size = sizeof(struct vector *) * object->rows;
-  object->items = (void **)malloc(matrix_size);
+  object->items = malloc(matrix_size);
   if (object->items == NULL) {
     matrix_destroy(object);
     return NULL;
@@ -33,8 +33,68 @@ struct matrix *matrix_create(const int rows, const int columns) {
       return NULL;
     }
   }
-  // Return the vector object.
+  // Return the matrix object.
   return object;
+}
+
+/**
+ * {@inheritdoc}
+ */
+struct matrix *matrix_create_random(const int rows, const int columns, const long double min, const long double max) {
+  // Create a new matrix object instance.
+  struct matrix *object = matrix_create(rows, columns);
+  if (object == NULL) {
+    return NULL;
+  }
+  // Fill matrix with random values between min and max.
+  matrix_fill_random(object, min, max);
+  // Return the matrix object.
+  return object;
+}
+
+/**
+ * Generate a random long double value between a specified range.
+ *
+ * This function generates a random floating-point value between the provided
+ * `min` and `max` values using a uniform distribution. It uses the `rand()`
+ * function to generate a random integer and scales it to the desired range by
+ * normalizing the result to a floating-point number between 0 and 1, then scaling
+ * it to fit within the specified bounds.
+ *
+ * Note: The function relies on the standard `rand()` function, which provides
+ * limited precision and should be seeded with `srand()` before use in the program.
+ * For applications that require higher precision or different distributions,
+ * consider using other random number generators.
+ *
+ * @param long double min
+ *   The minimum possible value in the generated range.
+ * @param long double max
+ *   The maximum possible value in the generated range.
+ *
+ * @return
+ *   A random long double between `min` and `max`.
+ */
+static long double random_long_double(long double min, long double max) {
+  // Random number between 0 and 1.
+  long double scale = rand() / (long double)RAND_MAX;
+  // Scale it to the desired range.
+  return min + scale * (max - min);
+}
+
+/**
+ * {@inheritdoc}
+ */
+void matrix_fill_random(struct matrix *object, const long double min, const long double max) {
+  // Handle null matrix object.
+  if (object == NULL) {
+    return;
+  }
+  // Assign a random value to each element in the matrix.
+  for (size_t j = 0; j < object->rows; j++) {
+    for (size_t k = 0; k < object->columns; k++) {
+      matrix_setl(object, j, k, random_long_double(min, max));
+    }
+  }
 }
 
 /**
@@ -52,19 +112,18 @@ void matrix_destroy(struct matrix *object) {
   }
   free(object->items);
   object->items = NULL;
-  // Free the object.
+  // Free the matrix structure itself.
   free(object);
-  object = NULL;
 }
 
 /**
  * {@inheritdoc}
  */
 int matrix_check_boundaries(struct matrix *object, int j, int k) {
-  if (j >= 0 && j < object->rows && k >= 0 && k < object->columns) {
-    return 1;
+  if (object == NULL || j < 0 || j >= object->rows || k < 0 || k >= object->columns) {
+    return 0;
   }
-  return 0;
+  return 1;
 }
 
 /**
@@ -117,13 +176,12 @@ struct matrix *matrix_from_array(long double *array, const int rows, const int c
  * {@inheritdoc}
  */
 void matrix_fill_from_array(long double *array, struct matrix *object, const int rows, const int columns) {
-  if (object == NULL) {
+  if (object == NULL || array == NULL || rows <= 0 || columns <= 0) {
     return;
   }
-  int j, k;
   long double *value;
-  for (j = 0; j < rows; j++) {
-    for (k = 0; k < columns; k++) {
+  for (int j = 0; j < rows; j++) {
+    for (int k = 0; k < columns; k++) {
       value = (array + j * columns) + k;
       matrix_setl(object, j, k, *value);
     }
@@ -152,7 +210,9 @@ int matrix_copy(struct matrix *src, struct matrix *dest) {
   for (int i = 0; i < src->rows; i++) {
     for (int j = 0; j < src->columns; j++) {
       value = matrix_getl(src, i, j);
-      matrix_setl(dest, i, j, *value);
+      if (value != NULL) {
+        matrix_setl(dest, i, j, *value);
+      }
     }
   }
   return 0;

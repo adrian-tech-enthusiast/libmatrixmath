@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "../include/matrixmath.h"
 #include "matrix_tests.h"
 
@@ -109,6 +111,18 @@ int matrix_tests() {
   matrix_print(matrix_l);
   matrix_print(matrix_m);
 
+  // Test Matrix Create Random.
+  printf("------------ Matrix Create Random. ------------\n");
+  // Seed the random number generator with the current time.
+  srandom(time(NULL));
+  struct matrix *matrix_p = matrix_create_random(rows, columns, 0.1, 1.0);
+  struct matrix *matrix_q = matrix_create_random(rows, columns, 0.1, 1.0);
+  struct matrix *matrix_r = matrix_create_random(rows, columns, 0.1, 1.0);
+
+  matrix_print(matrix_p);
+  matrix_print(matrix_q);
+  matrix_print(matrix_r);
+
   // Clear the used memory.
   matrix_destroy(matrix_a);
   matrix_destroy(matrix_b);
@@ -128,6 +142,10 @@ int matrix_tests() {
   matrix_destroy(matrix_n);
   vector_destroy(vector_n);
   vector_destroy(vector_o);
+
+  matrix_destroy(matrix_p);
+  matrix_destroy(matrix_q);
+  matrix_destroy(matrix_r);
 
   // Return success response.
   return 0;
