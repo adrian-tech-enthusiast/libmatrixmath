@@ -6,13 +6,13 @@
  * {@inheritdoc}
  */
 struct vector *vector_create(const int capacity) {
-  if (!(capacity > 0)) {
+  if (capacity <= 0) {
     // Vector with no capacity not allowed.
     return NULL;
   }
   // Allocate vector memory space.
   size_t size = sizeof(struct vector);
-  struct vector *object = (struct vector *)malloc(size);
+  struct vector *object = malloc(size);
   if (object == NULL) {
     return NULL;
   }
@@ -20,7 +20,7 @@ struct vector *vector_create(const int capacity) {
   object->capacity = capacity;
   // Try to set the requested vector capacity.
   size_t items_size = sizeof(struct _vector_item *) * object->capacity;
-  object->items = (void **)malloc(items_size);
+  object->items = malloc(items_size);
   if (object->items == NULL) {
     vector_destroy(object);
     return NULL;
@@ -36,10 +36,29 @@ struct vector *vector_create(const int capacity) {
 /**
  * {@inheritdoc}
  */
+struct vector *vector_create_random(const int capacity, const long double min, const long double max) {
+  // Create a new vector object instance.
+  struct vector *object = vector_create(capacity);
+  if (object == NULL) {
+    return NULL;
+  }
+  // Fill vector with random values between min and max.
+  vector_fill_random(object, min, max);
+  // Return the vector object.
+  return object;
+}
+
+/**
+ * {@inheritdoc}
+ */
 struct vector **vector_create_multiple(int size) {
+  // Ensure size is valid.
+  if (size <= 0) {
+    return NULL;
+  }
   // Try to set the requested the items memory.
   size_t items_size = sizeof(struct vector *) * size;
-  struct vector **items = (struct vector **)malloc(items_size);
+  struct vector **items = malloc(items_size);
   return items;
 }
 
@@ -75,20 +94,28 @@ void vector_destroy(struct vector *object) {
  *   The number of vectors to destroy.
  */
 void vector_destroy_multiple(struct vector **items, int size) {
+  // Check for NULL or invalid size.
+  if (items == NULL || size <= 0) {
+    return;
+  }
   for (size_t i = 0; i < size; i++) {
     vector_destroy(items[i]);
   }
   free(items);
-  items = NULL;
 }
 
 /**
  * {@inheritdoc}
  */
 long double *vector_setl(struct vector *object, int index, long double value) {
+  // Check for valid index.
+  if (object == NULL || index < 0 || index >= object->capacity) {
+    // Index out of bounds.
+    return NULL;
+  }
   // Create void pointer with the value.
   size_t size = sizeof(long double);
-  long double *item_value = (long double *)malloc(size);
+  long double *item_value = malloc(size);
   if (item_value == NULL) {
     return NULL;
   }
@@ -108,6 +135,11 @@ long double *vector_setl(struct vector *object, int index, long double value) {
  * {@inheritdoc}
  */
 long double *vector_getl(struct vector *object, int index) {
+  // Check for valid index
+  if (object == NULL || index < 0 || index >= object->capacity) {
+    // Index out of bounds.
+    return NULL;
+  }
   void *item = object->items[index];
   if (item == NULL) {
     return NULL;
@@ -123,6 +155,10 @@ long double *vector_getl(struct vector *object, int index) {
  * {@inheritdoc}
  */
 struct vector *vector_concatenate(struct vector *a, struct vector *b) {
+  // Ensure both vectors are valid.
+  if (a == NULL || b == NULL) {
+    return NULL;
+  }
   int capacity = a->capacity + b->capacity;
   // Create the new vector to store the result of the operation.
   struct vector *result = vector_create(capacity);
@@ -131,23 +167,23 @@ struct vector *vector_concatenate(struct vector *a, struct vector *b) {
   }
   // Copy values from vector a.
   long double *val;
-  for (int i = 0; i < a->capacity; i++) {
+  for (size_t i = 0; i < a->capacity; i++) {
     val = vector_getl(a, i);
     if (val == NULL) {
-      free(result);
+      vector_destroy(result);
       return NULL;
     }
-    vector_setl(result, i, (*val));
+    vector_setl(result, i, *val);
   }
   // Copy values from vector b.
-  int start = a->capacity;
-  for (int j = 0; j < b->capacity; j++) {
+  size_t start = a->capacity;
+  for (size_t j = 0; j < b->capacity; j++) {
     val = vector_getl(b, j);
     if (val == NULL) {
-      free(result);
+      vector_destroy(result);
       return NULL;
     }
-    vector_setl(result, (start + j), (*val));
+    vector_setl(result, (start + j), *val);
   }
   // Return the result of the operation.
   return result;
@@ -157,6 +193,10 @@ struct vector *vector_concatenate(struct vector *a, struct vector *b) {
  * {@inheritdoc}
  */
 struct vector *vector_clone(struct vector *a) {
+  // Ensure the source vector is valid.
+  if (a == NULL) {
+    return NULL;
+  }
   // Create the new vector to store the result of the operation.
   struct vector *result = vector_create(a->capacity);
   if (result == NULL) {
@@ -164,7 +204,7 @@ struct vector *vector_clone(struct vector *a) {
   }
   // Copy values from vector a.
   long double *val;
-  for (int i = 0; i < a->capacity; i++) {
+  for (size_t i = 0; i < a->capacity; i++) {
     val = vector_getl(a, i);
     if (val != NULL) {
       vector_setl(result, i, (*val));
@@ -178,8 +218,12 @@ struct vector *vector_clone(struct vector *a) {
  * {@inheritdoc}
  */
 int vector_walk(struct vector *a, long double (*callback)(long double)) {
+  // Check for NULL pointers.
+  if (a == NULL || callback == NULL) {
+    return 0;
+  }
   long double *val;
-  for (int i = 0; i < a->capacity; i++) {
+  for (size_t i = 0; i < a->capacity; i++) {
     val = vector_getl(a, i);
     if (val == NULL) {
       return 0;
@@ -193,8 +237,55 @@ int vector_walk(struct vector *a, long double (*callback)(long double)) {
  * {@inheritdoc}
  */
 void vector_fill(struct vector *object, const long double value) {
+  // Check for NULL vector object.
+  if (object == NULL) {
+    return;
+  }
   for (size_t i = 0; i < object->capacity; i++) {
     vector_setl(object, i, value);
+  }
+}
+
+/**
+ * Generate a random long double value between a specified range.
+ *
+ * This function generates a random floating-point value between the provided
+ * `min` and `max` values using a uniform distribution. It uses the `rand()`
+ * function to generate a random integer and scales it to the desired range by
+ * normalizing the result to a floating-point number between 0 and 1, then scaling
+ * it to fit within the specified bounds.
+ *
+ * Note: The function relies on the standard `rand()` function, which provides
+ * limited precision and should be seeded with `srand()` before use in the program.
+ * For applications that require higher precision or different distributions,
+ * consider using other random number generators.
+ *
+ * @param long double min
+ *   The minimum possible value in the generated range.
+ * @param long double max
+ *   The maximum possible value in the generated range.
+ *
+ * @return
+ *   A random long double between `min` and `max`.
+ */
+static long double random_long_double(long double min, long double max) {
+  // Random number between 0 and 1.
+  long double scale = rand() / (long double)RAND_MAX;
+  // Scale it to the desired range.
+  return min + scale * (max - min);
+}
+
+/**
+ * {@inheritdoc}
+ */
+void vector_fill_random(struct vector *object, const long double min, const long double max) {
+  // Handle NULL vector object.
+  if (object == NULL) {
+    return;
+  }
+  // Assign a random value to each element in the vector.
+  for (size_t i = 0; i < object->capacity; i++) {
+    vector_setl(object, i, random_long_double(min, max));
   }
 }
 
@@ -202,13 +293,20 @@ void vector_fill(struct vector *object, const long double value) {
  * {@inheritdoc}
  */
 int vector_copy(struct vector *src, struct vector *dest) {
-  if (src == NULL || dest == NULL || src->capacity != dest->capacity) {
+  // Ensure both source and destination are valid.
+  if (src == NULL || dest == NULL) {
+    return 1;
+  }
+  // Ensure destination capacity is sufficient.
+  if (dest->capacity < src->capacity) {
     return 1;
   }
   long double *val;
-  for (int i = 0; i < src->capacity; i++) {
+  for (size_t i = 0; i < src->capacity; i++) {
     val = vector_getl(src, i);
-    vector_setl(dest, i, *val);
+    if (val != NULL) {
+      vector_setl(dest, i, *val);
+    }
   }
   return 0;
 }

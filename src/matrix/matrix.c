@@ -53,51 +53,6 @@ struct matrix *matrix_create_random(const int rows, const int columns, const lon
 }
 
 /**
- * Generate a random long double value between a specified range.
- *
- * This function generates a random floating-point value between the provided
- * `min` and `max` values using a uniform distribution. It uses the `rand()`
- * function to generate a random integer and scales it to the desired range by
- * normalizing the result to a floating-point number between 0 and 1, then scaling
- * it to fit within the specified bounds.
- *
- * Note: The function relies on the standard `rand()` function, which provides
- * limited precision and should be seeded with `srand()` before use in the program.
- * For applications that require higher precision or different distributions,
- * consider using other random number generators.
- *
- * @param long double min
- *   The minimum possible value in the generated range.
- * @param long double max
- *   The maximum possible value in the generated range.
- *
- * @return
- *   A random long double between `min` and `max`.
- */
-static long double random_long_double(long double min, long double max) {
-  // Random number between 0 and 1.
-  long double scale = rand() / (long double)RAND_MAX;
-  // Scale it to the desired range.
-  return min + scale * (max - min);
-}
-
-/**
- * {@inheritdoc}
- */
-void matrix_fill_random(struct matrix *object, const long double min, const long double max) {
-  // Handle null matrix object.
-  if (object == NULL) {
-    return;
-  }
-  // Assign a random value to each element in the matrix.
-  for (size_t j = 0; j < object->rows; j++) {
-    for (size_t k = 0; k < object->columns; k++) {
-      matrix_setl(object, j, k, random_long_double(min, max));
-    }
-  }
-}
-
-/**
  * {@inheritdoc}
  */
 void matrix_destroy(struct matrix *object) {
@@ -195,6 +150,22 @@ void matrix_fill(struct matrix *object, const long double value) {
   for (size_t j = 0; j < object->rows; j++) {
     for (size_t k = 0; k < object->columns; k++) {
       matrix_setl(object, j, k, value);
+    }
+  }
+}
+
+/**
+ * {@inheritdoc}
+ */
+void matrix_fill_random(struct matrix *object, const long double min, const long double max) {
+  // Handle NULL matrix object.
+  if (object == NULL) {
+    return;
+  }
+  // Assign a random value to each element in the matrix.
+  for (size_t j = 0; j < object->rows; j++) {
+    if (object->items[j] != NULL) {
+      vector_fill_random(object->items[j], min, max);
     }
   }
 }

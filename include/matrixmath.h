@@ -37,6 +37,21 @@ struct vector {
 struct vector *vector_create(const int capacity);
 
 /**
+ * Create a new vector object instance with random values between a specified range.
+ *
+ * @param const int capacity
+ *   The maximum size of the vector.
+ * @param const long double min
+ *   The minimum value for random initialization.
+ * @param const long double max
+ *   The maximum value for random initialization.
+ *
+ * @return struct vector*
+ *   The pointer to the vector instance, otherwise NULL.
+ */
+struct vector *vector_create_random(const int capacity, const long double min, const long double max);
+
+/**
  * Creates multiple vectors.
  *
  * @param int size
@@ -143,6 +158,18 @@ int vector_walk(struct vector *a, long double (*callback)(long double));
  *   The value to set in the vector.
  */
 void vector_fill(struct vector *object, const long double value);
+
+/**
+ * Fill the given vector with random values between a specified range.
+ *
+ * @param struct vector *object
+ *   The vector object to fill.
+ * @param const long double min
+ *   The minimum random value.
+ * @param const long double max
+ *   The maximum random value.
+ */
+void vector_fill_random(struct vector *object, const long double min, const long double max);
 
 /**
  * Copies the contents of one vector to another.

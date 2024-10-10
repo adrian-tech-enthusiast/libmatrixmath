@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "../include/matrixmath.h"
 #include "vector_tests.h"
 
@@ -125,6 +127,18 @@ int vector_tests() {
   vector_println(a);
   struct vector *result7 = vector_clone(a);
   vector_println(result7);
+
+  // Test Vector Create Random.
+  printf("------------ Vector Create Random. ------------\n");
+  // Seed the random number generator with the current time.
+  srandom(time(NULL));
+  struct vector *vector_p = vector_create_random(capacity, 0.1, 1.0);
+  struct vector *vector_q = vector_create_random(capacity, 0.1, 1.0);
+  struct vector *vector_r = vector_create_random(capacity, 0.1, 1.0);
+
+  vector_println(vector_p);
+  vector_println(vector_q);
+  vector_println(vector_r);
 
   // Clear the used memory.
   vector_destroy(a);
