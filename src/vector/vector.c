@@ -36,6 +36,29 @@ struct vector *vector_create(const int capacity) {
 /**
  * {@inheritdoc}
  */
+struct vector *vector_create_zeros(const int capacity) {
+  // Reuse the generalized function to create a vector with a specific default value.
+  return vector_create_with_value(capacity, 0);
+}
+
+/**
+ * {@inheritdoc}
+ */
+struct vector *vector_create_with_value(const int capacity, long double default_value) {
+  // Create a new vector object instance.
+  struct vector *object = vector_create(capacity);
+  if (object == NULL) {
+    return NULL;
+  }
+  // Fill the vector with the provided default value.
+  vector_fill(object, default_value);
+  // Return the vector object.
+  return object;
+}
+
+/**
+ * {@inheritdoc}
+ */
 struct vector *vector_create_random(const int capacity, const long double min, const long double max) {
   // Create a new vector object instance.
   struct vector *object = vector_create(capacity);

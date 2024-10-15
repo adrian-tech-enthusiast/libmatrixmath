@@ -37,6 +37,30 @@ struct vector {
 struct vector *vector_create(const int capacity);
 
 /**
+ * Create a new vector filled with zeros.
+ *
+ * @param const int capacity
+ *   The max size of the vector.
+ *
+ * @return struct vector*
+ *   The pointer to the zero-filled vector instance, otherwise NULL.
+ */
+struct vector *vector_create_zeros(const int capacity);
+
+/**
+ * Create a new vector filled with a given default value.
+ *
+ * @param const int capacity
+ *   The max size of the vector.
+ * @param long double default_value
+ *   The value to initialize each element with.
+ *
+ * @return struct vector*
+ *   The pointer to the value-filled vector instance, otherwise NULL.
+ */
+struct vector *vector_create_with_value(const int capacity, long double default_value);
+
+/**
  * Create a new vector object instance with random values between a specified range.
  *
  * @param const int capacity
