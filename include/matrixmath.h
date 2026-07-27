@@ -87,7 +87,7 @@ struct vector *vector_create_random(const int capacity, const long double min, c
 struct vector **vector_create_multiple(int size);
 
 /**
- * Free the memory associted to a vector object.
+ * Free the memory associated to a vector object.
  *
  * @param struct vector* object
  *   The vector object to be clean.
@@ -125,8 +125,7 @@ long double *vector_setl(struct vector *object, int index, long double value);
  * @param struct vector* object
  *   The vector object.
  * @param int index
- *   The position to store the given value.
- * @param long double value
+ *   The position to read the value from.
  *
  * @return long double*
  *   The pointer to the long double value stored at the given position; otherwise NULL.
@@ -235,7 +234,7 @@ struct vector *vector_add(struct vector *a, struct vector *b);
  *   The first vector object to be added.
  * @param struct vector* b
  *   The second vector object to be added.
- * @param struct matrix* dest
+ * @param struct vector* dest
  *   The destination vector where the results of the operation will be stored.
  *
  * @return int
@@ -262,7 +261,7 @@ struct vector *vector_sub(struct vector *a, struct vector *b);
  *   The first vector object to be subtracted.
  * @param struct vector* b
  *   The second vector object to be subtracted.
- * @param struct matrix* dest
+ * @param struct vector* dest
  *   The destination vector where the results of the operation will be stored.
  *
  * @return int
@@ -320,7 +319,7 @@ struct vector *vector_scalar_mul(long double scalar, struct vector *a);
  *   The scalar to be multiplied.
  * @param struct vector* a
  *   The second vector object to be multiplied.
- * @param struct matrix* dest
+ * @param struct vector* dest
  *   The destination vector where the results of the operation will be stored.
  *
  * @return int
@@ -403,20 +402,20 @@ struct matrix {
   int columns;
 };
 
-/*
+/**
  * Create a new matrix object instance.
  *
  * @param const int rows
- *   The numer of rows in the matrix.
+ *   The number of rows in the matrix.
  * @param const int columns
- *   The numer of columns in the matrix.
+ *   The number of columns in the matrix.
  *
  * @return struct matrix*
  *   The pointer to the matrix instance, otherwise NULL.
  */
 struct matrix *matrix_create(const int rows, const int columns);
 
-/*
+/**
  * Create a new matrix object instance with random values between a given range.
  *
  * @param const int rows
@@ -434,7 +433,7 @@ struct matrix *matrix_create(const int rows, const int columns);
 struct matrix *matrix_create_random(const int rows, const int columns, const long double min, const long double max);
 
 /**
- * Free the memory associted to a matrix object.
+ * Free the memory associated to a matrix object.
  *
  * @param struct matrix* object
  *   The matrix object to be clean.
@@ -442,7 +441,7 @@ struct matrix *matrix_create_random(const int rows, const int columns, const lon
 void matrix_destroy(struct matrix *object);
 
 /**
- * Check if the given positions j and K are valid in the given matrix object.
+ * Check if the given positions j and k are valid in the given matrix object.
  *
  * @param struct matrix* object
  *   The matrix object.
@@ -450,11 +449,9 @@ void matrix_destroy(struct matrix *object);
  *   The j position to check.
  * @param int k
  *   The k position to check.
- * @param long double value
- *   The value to store.
  *
  * @return int
- *   Returns 1 if the given positions j and K are valid, otherwise 0.
+ *   Returns 1 if the given positions j and k are valid, otherwise 0.
  */
 int matrix_check_boundaries(struct matrix *object, int j, int k);
 
@@ -481,26 +478,24 @@ long double *matrix_setl(struct matrix *object, int j, int k, long double value)
  * @param struct matrix* object
  *   The matrix object.
  * @param int j
- *   The x position to store the given value.
+ *   The row position to read the value from.
  * @param int k
- *   The y position to store the given value.
- * @param long double value
+ *   The column position to read the value from.
  *
  * @return long double*
  *   The pointer to the long double value stored at the given position; otherwise NULL.
  */
 long double *matrix_getl(struct matrix *object, int j, int k);
 
-/*
+/**
  * Create a new matrix object instance from the given array values.
- *
  *
  * @param long double *array
  *   The pointer to the tip(first) value on the array.
  * @param const int rows
- *   The numer of rows in the matrix.
+ *   The number of rows in the matrix.
  * @param const int columns
- *   The numer of columns in the matrix.
+ *   The number of columns in the matrix.
  *
  * @return struct matrix*
  *   The pointer to the matrix instance, otherwise NULL.
@@ -537,12 +532,9 @@ void matrix_fill_random(struct matrix *object, const long double min, const long
  * @param struct matrix* object
  *   The matrix object.
  * @param const int rows
- *   The numer of rows in the matrix.
+ *   The number of rows in the matrix.
  * @param const int columns
- *   The numer of columns in the matrix.
- *
- * @return int
- *   Returns 1 if the given positions j and K are valid, otherwise 0.
+ *   The number of columns in the matrix.
  */
 void matrix_fill_from_array(long double *array, struct matrix *object, const int rows, const int columns);
 
@@ -575,7 +567,7 @@ int matrix_copy(struct matrix *src, struct matrix *dest);
  *   The second matrix object to be added.
  *
  * @return struct matrix*
- *   The new matrix instance with the sum of the two given matrixes; otherwise NULL.
+ *   The new matrix instance with the sum of the two given matrices; otherwise NULL.
  */
 struct matrix *matrix_add(struct matrix *a, struct matrix *b);
 
@@ -603,7 +595,7 @@ int matrix_add_dest(struct matrix *a, struct matrix *b, struct matrix *dest);
  *   The second matrix object to be subtracted.
  *
  * @return struct matrix*
- *   The new matrix instance with the subtraction of the two given matrixes; otherwise NULL.
+ *   The new matrix instance with the subtraction of the two given matrices; otherwise NULL.
  */
 struct matrix *matrix_sub(struct matrix *a, struct matrix *b);
 
@@ -631,7 +623,7 @@ int matrix_sub_dest(struct matrix *a, struct matrix *b, struct matrix *dest);
  *   The second matrix object to be multiplied.
  *
  * @return struct matrix*
- *   The new matrix instance with the product of two matrixes; otherwise NULL.
+ *   The new matrix instance with the product of two matrices; otherwise NULL.
  */
 struct matrix *matrix_mul(struct matrix *a, struct matrix *b);
 
@@ -649,12 +641,14 @@ struct matrix *matrix_mul(struct matrix *a, struct matrix *b);
 struct matrix *matrix_scalar_mul(long double scalar, struct matrix *a);
 
 /**
- * Matrix multiplication by a scalar.
+ * Matrix multiplication by a scalar with destination.
  *
  * @param long double scalar
  *   The scalar to be multiplied.
  * @param struct matrix* a
  *   The second matrix object to be multiplied.
+ * @param struct matrix* dest
+ *   The destination matrix where the results of the operation will be stored.
  *
  * @return int
  *   Returns 0 when the operation succeeded, otherwise 1.
@@ -714,7 +708,7 @@ void matrix_print(struct matrix *object);
  */
 struct vector *matrix_to_vector(struct matrix *m);
 
-/*
+/**
  * Convert the given vector into a one column matrix.
  *
  * @param struct vector* a
